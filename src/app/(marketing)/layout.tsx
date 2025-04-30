@@ -8,7 +8,7 @@ export const MarketingLayout = ({
   children,
 }: {
   children: React.ReactNode;
-}) => {
+}): React.ReactNode => {
   return (
     <div>
       <header className="container mx-auto px-8 z-40 bg-background">
