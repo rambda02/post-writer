@@ -182,6 +182,27 @@ export default function IndexPage() {
           </p>
         </div>
       </section>
+      <section
+        id="contact"
+        className="container mx-auto px-8 py-8 md:py-12 lg:py-24"
+      >
+        <div className="max-w-[58rem] mx-auto text-center flex flex-col gap-4">
+          <h2 className="font-extrabold text-3xl md:text-6xl">Contact Me</h2>
+          <p className="text-muted-foreground sm:text-lg sm:leading-7">
+            もしもwebさービスが気に入った場合は下記xからDMでご連絡ください。
+            <br />
+            お仕事のご連絡をお待ちしております。
+          </p>
+          <Link
+            href={siteConfig.links.x}
+            className="underline underline-offset-4"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            お仕事はxまで
+          </Link>
+        </div>
+      </section>
     </>
   );
 }
