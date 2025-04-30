@@ -4,11 +4,11 @@ import { marketingConfig } from "@/config/marketing";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-export const MarketingLayout = ({
+export default function MarketingLayout({
   children,
 }: {
   children: React.ReactNode;
-}): React.ReactNode => {
+}) {
   return (
     <div>
       <header className="container mx-auto px-8 z-40 bg-background">
@@ -30,6 +30,4 @@ export const MarketingLayout = ({
       <main>{children}</main>
     </div>
   );
-};
-
-export default MarketingLayout;
+}

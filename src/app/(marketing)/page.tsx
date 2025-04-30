@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 
-export const IndexPage = () => {
+export default function IndexPage() {
   return (
     <>
       <section className="pt-6 md:pt-10 lg:py-32 pb-8 md:pb-12">
@@ -41,6 +41,4 @@ export const IndexPage = () => {
       </section>
     </>
   );
-};
-
-export default IndexPage;
+}
