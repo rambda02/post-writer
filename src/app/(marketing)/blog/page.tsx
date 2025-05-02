@@ -11,7 +11,7 @@ export default function BlogPage() {
       <div>
         <div className="space-y-4">
           <h1 className="font-extrabold text-4xl lg:text-5xl tracking-tighter">
-            Blog🚀
+            Blog 🚀
           </h1>
           <p className="text-muted-foreground text-xl">
             ContentlayerとMDXで書いています。
@@ -41,10 +41,7 @@ export default function BlogPage() {
                 {format(post.date, "yyyy/MM/dd")}
               </p>
             )}
-            <Link
-              href={`/blog/${post.slug}`}
-              className="absolute inset-0"
-            ></Link>
+            <Link href={post.slug} className="absolute inset-0"></Link>
           </article>
         ))}
       </div>
