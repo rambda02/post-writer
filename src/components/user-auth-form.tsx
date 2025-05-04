@@ -1,10 +1,17 @@
+"use client";
+
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { buttonVariants } from "./ui/button";
 import { Icon } from "./icon";
+import { signIn } from "next-auth/react";
 
 export const UserAuthForm = () => {
+  const [isGithubLoading, setIsGithubLoading] = useState<boolean>(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState<boolean>(false);
+
   return (
     <div className="grid gap-6">
       <form>
@@ -28,10 +35,28 @@ export const UserAuthForm = () => {
           </span>
         </div>
       </div>
-      <button className={cn(buttonVariants({ variant: "outline" }))}>
-        <Icon.github />
-        GitHub
-      </button>
+      <div className="flex flex-col gap-2">
+        <button
+          className={cn(buttonVariants({ variant: "outline" }))}
+          onClick={() => {
+            setIsGithubLoading(true);
+            signIn("github");
+          }}
+        >
+          {isGithubLoading ? <Icon.spinner /> : <Icon.github />}
+          GitHub
+        </button>
+        <button
+          className={cn(buttonVariants({ variant: "outline" }))}
+          onClick={() => {
+            setIsGoogleLoading(true);
+            signIn("google");
+          }}
+        >
+          {isGoogleLoading ? <Icon.spinner /> : <Icon.google />}
+          Google
+        </button>
+      </div>
     </div>
   );
 };
