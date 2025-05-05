@@ -11,7 +11,6 @@ import {
   HelpCircle,
   Image,
   Laptop,
-  LucideProps,
   Moon,
   MoreVertical,
   Pizza,
@@ -19,7 +18,6 @@ import {
   Settings,
   SunMedium,
   Trash,
-  Twitter,
   User,
   X,
 } from "lucide-react";

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-interface DashBoardShellProps extends React.HTMLAttributes<HTMLDivElement> {}
+type DashBoardShellProps = React.HTMLAttributes<HTMLDivElement>;
 
 export const DashBoardShell = ({
   children,
