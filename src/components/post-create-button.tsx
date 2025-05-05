@@ -15,7 +15,7 @@ export const PostCreateButton = ({
   variant,
   ...props
 }: PostCreateButtonProps) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, _] = useState(false);
 
   const onClick = () => {};
 
