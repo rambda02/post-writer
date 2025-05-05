@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
 declare global {
+  // eslint-disable-next-line no-var
   var cachePrisma: PrismaClient;
 }
 
@@ -10,7 +11,7 @@ let prisma: PrismaClient;
 if (process.env.NODE_ENV === "production") {
   prisma = new PrismaClient();
 
-// それ以外の環境の場合
+  // それ以外の環境の場合
 } else {
   // サーバーキャッシュがない場合
   if (!global.cachePrisma) {
