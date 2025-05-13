@@ -1,14 +1,22 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import "./globals.css";
 import { Inter as FontSans } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from "@/components/analytics";
-import "./globals.css";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
 
 const fontSans = FontSans({
   subsets: ["latin"],
 });
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
+};
 
 export const metadata: Metadata = {
   title: {
@@ -16,7 +24,14 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  keywords: ["Next.js", "React", "Tailwind CSS", "shadcn/ui"],
+  keywords: [
+    "Next.js",
+    "React",
+    "Tailwind CSS",
+    "shadcn/ui",
+    "NextAuth",
+    "Prisma",
+  ],
   authors: [
     {
       name: "rambda",
@@ -24,11 +39,6 @@ export const metadata: Metadata = {
     },
   ],
   creator: "rambda",
-  themeColor: [
-    // テーマカラーを設定 （アドレスバーやブラウザのタブの色）
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
   openGraph: {
     type: "website",
     locale: "ja",
@@ -46,8 +56,8 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+    // shortcut: "/favicon-16x16.png",
+    // apple: "/apple-touch-icon.png",
   },
   manifest: `${siteConfig.url}/site.webmanifest`, // ウェブアプリケーションの設定を定義
 };
@@ -68,6 +78,7 @@ export default function RootLayout({
         {children}
         <Analytics />
         <Toaster />
+        <TailwindIndicator />
       </body>
     </html>
   );
