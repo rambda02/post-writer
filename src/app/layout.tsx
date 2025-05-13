@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Noto_Sans_JP } from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 import { Toaster } from "@/components/ui/sonner";
 
-const notoSansJP = Noto_Sans_JP({
+const fontSans = FontSans({
   subsets: ["latin"],
 });
 
@@ -18,9 +18,15 @@ export const metadata: Metadata = {
   keywords: ["Next.js", "React", "Tailwind CSS", "shadcn/ui"],
   authors: [
     {
-      name: "Lambda878",
-      url: siteConfig.url,
+      name: "rambda",
+      url: "https://rambda.com",
     },
+  ],
+  creator: "rambda",
+  themeColor: [
+    // テーマカラーを設定 （アドレスバーやブラウザのタブの色）
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
   openGraph: {
     type: "website",
@@ -35,8 +41,14 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [`${siteConfig.url}/og.png`],
-    creator: "@Lambda878",
+    creator: "@rumbda",
   },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: `${siteConfig.url}/site.webmanifest`, // ウェブアプリケーションの設定を定義
 };
 
 export default function RootLayout({
@@ -45,11 +57,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
+    <html lang="en">
       <body
         className={cn(
-          notoSansJP.className,
-          "bg-background min-h-screen antialiased"
+          "min-h-screen bg-background font-sans antialiased", // フォントが読み込まれるまではfont-sansが適用される
+          fontSans.className
         )}
       >
         {children}
