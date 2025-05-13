@@ -1,27 +1,55 @@
-import Link from "next/link";
 import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
+import { Icon } from "./icon";
 
-export const SiteFooter = () => {
+export const SiteFooter = ({ className}: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <footer>
-      <div className="container mx-auto px-8 py-10 md:py-0 md:h-20">
-        <p className="text-center text-sm md:text-left">
+    <footer className={cn(className)}>
+    <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
+      <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+        <Icon.logo />
+        <p className="text-center text-sm leading-loose md:text-left">
           Built by{" "}
-          <Link
+          <a
             href={siteConfig.links.x}
-            className="underline underline-offset-4 font-medium"
+            target="_blank"
+            rel="noreferrer"
+            className="font-medium underline underline-offset-4"
           >
-            Lambda878
-          </Link>
+            rambda
+          </a>
           . Hosted on{" "}
-          <Link
+          <a
             href="https://vercel.com"
-            className="underline underline-offset-4 font-medium"
+            target="_blank"
+            rel="noreferrer"
+            className="font-medium underline underline-offset-4"
           >
             Vercel
-          </Link>
+          </a>
+          . Illustrations by{" "}
+          <a
+            href="https://popsy.co"
+            target="_blank"
+            rel="noreferrer"
+            className="font-medium underline underline-offset-4"
+          >
+            Popsy
+          </a>
+          . The source code is available on{" "}
+          <a
+            href={siteConfig.links.github}
+            target="_blank"
+            rel="noreferrer"
+            className="font-medium underline underline-offset-4"
+          >
+            GitHub
+          </a>
+          .
         </p>
       </div>
-    </footer>
+      {/* <ModeToggle /> */}
+    </div>
+  </footer>
   );
 };
