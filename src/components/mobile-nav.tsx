@@ -2,31 +2,49 @@ import Link from "next/link";
 import { NavItem } from "@/types";
 import { siteConfig } from "@/config/site";
 import { useLockBodyScroll } from "@uidotdev/usehooks";
+import { Icon } from "./icon";
+import { cn } from "@/lib/utils";
 
 interface MobileNavProps {
   items: NavItem[];
+  children?: React.ReactNode;
+  onNavigate?: () => void;
 }
 
-export const MobileNav = ({ items }: MobileNavProps) => {
+export const MobileNav = ({ items, children, onNavigate }: MobileNavProps) => {
   useLockBodyScroll();
 
   return (
-    <div className="fixed top-16 inset-0 z-50 p-6 shadow-md md:hidden animate-in slide-in-from-bottom-80">
-      <div className="grid gap-6 bg-popover p-4 text-popover-foreground shadow-md">
-        <Link href={"/"} className="font-bold">
-          {siteConfig.name}
+    <div
+      className={cn(
+        "fixed inset-0 top-16 z-50 grid h-[calc(100vh-4rem)] grid-flow-row auto-rows-max overflow-auto p-6 pb-32 shadow-md animate-in slide-in-from-bottom-80 md:hidden"
+      )}
+    >
+      <div className="relative z-20 grid gap-6 rounded-md bg-popover p-4 text-popover-foreground shadow-md">
+        <Link
+          href="/"
+          className="flex items-center space-x-2"
+          onClick={onNavigate}
+        >
+          <Icon.logo />
+          <span className="font-bold">{siteConfig.name}</span>
         </Link>
-        <nav className="text-sm flex gap-4">
+        <nav className="grid grid-flow-row auto-rows-max text-sm">
           {items.map((item, index) => (
             <Link
               key={index}
-              href={item.href}
-              className="p-2 font-medium hover:underline"
+              href={item.disabled ? "#" : item.href}
+              className={cn(
+                "flex w-full items-center rounded-md p-2 text-sm font-medium hover:underline",
+                item.disabled && "cursor-not-allowed opacity-60"
+              )}
+              onClick={onNavigate}
             >
               {item.title}
             </Link>
           ))}
         </nav>
+        {children}
       </div>
     </div>
   );

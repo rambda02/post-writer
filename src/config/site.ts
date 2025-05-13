@@ -1,7 +1,7 @@
 import { SiteConfig } from "@/types";
 
 export const siteConfig: SiteConfig = {
-  name: "Post Writer",
+  name: "Taxonomy",
   description:
     "An open source application built using the new router, server components and everything new in Next.js 15.",
   url: process.env.NEXTAUTH_URL || "http://localhost:3000",

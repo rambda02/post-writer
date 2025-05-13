@@ -11,24 +11,21 @@ export default function MarketingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
-      <header className="container mx-auto px-8 z-40 bg-background">
-        <div className="h-20 py-6 flex items-center justify-between">
+    <div className="flex flex-col min-h-screen">
+      <header className="w-full max-w-[1400px] mx-auto z-40 bg-background">
+        <div className="flex items-center justify-between h-20 py-6 px-8">
           <MainNav items={marketingConfig.mainNav} />
           <nav>
             <Link
               href="/login"
-              className={cn(
-                buttonVariants({ variant: "secondary", size: "sm" }),
-                "px-4 text-xs"
-              )}
+              className={cn(buttonVariants({ variant: "secondary" }))}
             >
-              ログイン
+              Login
             </Link>
           </nav>
         </div>
       </header>
-      <main>{children}</main>
+      <main className="flex-1">{children}</main>
       <SiteFooter />
     </div>
   );
