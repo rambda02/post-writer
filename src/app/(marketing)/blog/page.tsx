@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { allPosts } from "contentlayer/generated";
-import { compareDesc, format } from "date-fns";
+import { compareDesc } from "date-fns";
 
 export const metadata = {
   title: "Blog",
