@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from "@/components/analytics";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -68,17 +69,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased", // フォントが読み込まれるまではfont-sansが適用される
           fontSans.className
         )}
       >
-        {children}
-        <Analytics />
-        <Toaster />
-        <TailwindIndicator />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Analytics />
+          <Toaster />
+          <TailwindIndicator />
+        </ThemeProvider>
       </body>
     </html>
   );
