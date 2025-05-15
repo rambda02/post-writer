@@ -2,18 +2,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { allPosts } from "contentlayer/generated";
 import { compareDesc } from "date-fns";
+import { formatDate } from "@/lib/utils";
 
 export const metadata = {
   title: "Blog",
 };
-
-function formatDate(date: string) {
-  return new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
 
 export default function BlogPage() {
   const posts = allPosts
