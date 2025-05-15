@@ -9,31 +9,47 @@ import { buttonVariants } from "@/components/ui/button";
 import { Mdx } from "@/components/mdx-components";
 import { siteConfig } from "@/config/site";
 
+type PostPagePropsType = Promise<{
+  slug: string;
+}>;
+
 async function getPostFromSlug(slug: string) {
   const post = allPosts.find((post) => post.slugAsParams === slug);
+
+  if (!post) {
+    return null;
+  }
+
   return post;
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: PostPagePropsType;
 }): Promise<Metadata> {
-  const page = await getPostFromSlug((await params).slug);
+  const post = await getPostFromSlug((await params).slug);
 
-  if (!page) {
+  if (!post) {
     return {};
   }
 
+  const url = process.env.NEXTAUTH_URL || "http://localhost:3000";
+
+  const ogUrl = new URL(`${url}/api/og`);
+  ogUrl.searchParams.set("heading", post.title)
+  ogUrl.searchParams.set("type", "Blog Post")
+  ogUrl.searchParams.set("mode", "dark")
+
   return {
-    title: page.title,
-    description: page.description,
+    title: post.title,
+    description: post.description,
     openGraph: {
       type: "article",
       locale: "ja",
       url: siteConfig.url,
-      title: page.title,
-      description: page.description,
+      title: post.title,
+      description: post.description,
       siteName: siteConfig.name,
     },
     twitter: {
@@ -49,7 +65,7 @@ export async function generateMetadata({
 export default async function PostPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: PostPagePropsType;
 }) {
   const post = await getPostFromSlug((await params).slug);
 
