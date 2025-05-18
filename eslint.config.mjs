@@ -1,20 +1,28 @@
-// path: ファイルのパスを取得するためのモジュール
+/* ファイルのパスを取得するためのモジュール */
 import { dirname } from "path";
 
-// url: URL オブジェクトを操作するためのモジュール
+/* URL オブジェクトを操作するためのモジュール */
 import { fileURLToPath } from "url";
 
-// @eslint/eslintrc: ESLint 設定を互換モードで読み込むためのモジュール
+/* ESLint 設定を互換モードで読み込むためのモジュール */
 import { FlatCompat } from "@eslint/eslintrc";
 
-// 現在のファイルのパスを取得
+/**
+ * 現在のファイルのパスを取得する
+ */
 // import.meta.url: 現在のファイルの URL を取得するためのプロパティ (例: file:///Users/user/Desktop/next-blog/eslint.config.mjs)
 // fileURLToPath: URL をファイルパスに変換する関数 (例：　/Users/user/Desktop/next-blog/eslint.config.mjs)
 const __filename = fileURLToPath(import.meta.url);
 
+/**
+ * 現在のファイルのディレクトリ名を取得する
+ */
 // dirname: ファイルのディレクトリ名を取得するための関数 (例: /Users/user/Desktop/next-blog)
 const __dirname = dirname(__filename);
 
+/**
+ * ESLint の設定を互換性のある方法で管理するためのクラスをインスタンス化する
+ */
 // FlatCompat: ESLint の設定を互換性のある方法で管理するためのクラス
 // ESLint v9で導入された新しいフラット設定形式と、ESLint v8以前で使用されていた従来の設定形式（.eslintrcなど）との間の橋渡しをする重要なクラス
 const compat = new FlatCompat({
@@ -25,7 +33,9 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
 
-// 拡張設定を読み込む
+/**
+ * 拡張設定を読み込む
+ */
 const eslintConfig = [
   // next/core-web-vitals: Next.js のコアバッドプラクティスをチェックするためのルール
   // next/typescript: TypeScript のコードをチェックするためのルール
