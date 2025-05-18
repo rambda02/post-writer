@@ -37,6 +37,10 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.56.3",
     "react-textarea-autosize": "^8.5.9",
+    "rehype-autolink-headings": "^6.1.1",
+    "rehype-pretty-code": "^0.14.1",
+    "rehype-slug": "^3.0.0",
+    "remark-gfm": "^4.0.1",
     "sonner": "^2.0.3",
     "tailwind-merge": "^3.2.0",
     "zod": "^3.24.4"
