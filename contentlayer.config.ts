@@ -1,20 +1,20 @@
-/* マークダウンやMDXなどのコンテンツファイルを構造化されたデータに変換するためのNode.js用のライブラリ */
+// マークダウンやMDXなどのコンテンツファイルを構造化されたデータに変換するためのNode.js用のライブラリ
 import { defineDocumentType, makeSource } from "contentlayer2/source-files";
 
-/* Markdown ヘッダーに自動的にリンクを追加する rehype プラグイン */
+// Markdown ヘッダーに自動的にリンクを追加する rehype プラグイン
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
-/* コードブロックのシンタックスハイライトを行う rehype プラグイン */
+// コードブロックのシンタックスハイライトを行う rehype プラグイン
 import rehypePrettyCode, {
   type LineElement,
   type CharsElement,
 } from "rehype-pretty-code";
 
-/* ヘッダーの ID を自動生成する rehype プラグイン */
+// ヘッダーの ID を自動生成する rehype プラグイン
 import rehypeSlug from "rehype-slug";
 
-/* マークダウンのGFM（GitHub Flavored Markdown）をサポートするremark プラグイン 
-(テーブル記法、タスクリスト、取り消し線などの機能をサポートする) */
+// マークダウンのGFM（GitHub Flavored Markdown）をサポートするremark プラグイン 
+// (テーブル記法、タスクリスト、取り消し線などの機能をサポートする)
 import remarkGfm from "remark-gfm";
 
 /**

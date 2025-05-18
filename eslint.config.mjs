@@ -1,10 +1,10 @@
-/* ファイルのパスを取得するためのモジュール */
+// ファイルのパスを取得するためのモジュール
 import { dirname } from "path";
 
-/* URL オブジェクトを操作するためのモジュール */
+// URL オブジェクトを操作するためのモジュール
 import { fileURLToPath } from "url";
 
-/* ESLint 設定を互換モードで読み込むためのモジュール */
+// ESLint 設定を互換モードで読み込むためのモジュール
 import { FlatCompat } from "@eslint/eslintrc";
 
 /**

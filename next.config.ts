@@ -1,7 +1,7 @@
-/* Next.js フレームワークのコアパッケージ */
+// Next.js フレームワークのコアパッケージ
 import type { NextConfig } from "next";
 
-/* Contentlayer を使用してコンテンツを管理するためのライブラリ */
+// Contentlayer を使用してコンテンツを管理するためのライブラリ
 import { withContentlayer } from "next-contentlayer2";
 
 /**
