@@ -1,15 +1,24 @@
-import type { Metadata, Viewport } from "next";
-import "./globals.css";
-import { Inter as FontSans } from "next/font/google";
-import { siteConfig } from "@/config/site";
-import { cn } from "@/lib/utils";
-import { Toaster } from "@/components/ui/sonner";
-import { Analytics } from "@/components/analytics";
-import { TailwindIndicator } from "@/components/tailwind-indicator";
-import { ThemeProvider } from "@/components/theme-provider";
+import type { Metadata, Viewport } from "next"; // next.js のコアパッケージ
+import "./globals.css"; // グローバルスタイルシート
+import { Inter as FontSans } from "next/font/google"; // グローバルフォント
+import localFont from "next/font/local"; // ローカルフォント
+import { siteConfig } from "@/config/site"; // サイト設定
+import { cn } from "@/lib/utils"; // ユーティリティ
+import { Toaster } from "@/components/ui/sonner"; // トースター
+import { Analytics } from "@/components/analytics"; // アナリティクス
+import { TailwindIndicator } from "@/components/tailwind-indicator"; // インジケーター
+import { ThemeProvider } from "@/components/theme-provider"; // テーマプロバイダー
 
+// フォントの設定
 const fontSans = FontSans({
   subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+// ヘッダーのフォントの設定
+const fontHeading = localFont({
+  src: "../assets/fonts/CalSans-SemiBold.woff2",
+  variable: "--font-heading",
 });
 
 export const viewport: Viewport = {
@@ -73,7 +82,8 @@ export default function RootLayout({
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased", // フォントが読み込まれるまではfont-sansが適用される
-          fontSans.className
+          fontSans.variable,
+          fontHeading.variable
         )}
       >
         <ThemeProvider
