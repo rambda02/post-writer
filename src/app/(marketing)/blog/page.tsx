@@ -1,8 +1,8 @@
-import Link from "next/link";
-import Image from "next/image";
-import { allPosts } from "contentlayer/generated";
-import { compareDesc } from "date-fns";
-import { formatDate } from "@/lib/utils";
+import Link from "next/link"; // Next.js のリンクコンポーネント (リンクを表示する)
+import Image from "next/image"; // Next.js の画像コンポーネント (画像を表示する)
+import { allPosts } from "contentlayer/generated"; // Contentlayer の型付きデータパッケージ （Markdown ファイルから生成されたデータを型付きで取得する）
+import { compareDesc } from "date-fns"; // 日付操作ライブラリ (日付の解析、フォーマット、比較、加算・減算などの機能を提供する)
+import { formatDate } from "@/lib/utils"; // ユーティリティ関数ライブラリ
 
 // メタデータの設定
 export const metadata = {
