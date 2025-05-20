@@ -61,10 +61,11 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website", // ウェブサイトの設定
     locale: "ja", // 言語の設定
+    siteName: siteConfig.name, // サイトの名前
     url: siteConfig.url, // サイトのURL
     title: siteConfig.name, // タイトル
     description: siteConfig.description, // 説明
-    siteName: siteConfig.name, // サイトの名前
+    images: siteConfig.ogImage, // 画像
   },
   // Twitterの設定 (SEO対策、SNSシェアのための設定)
   twitter: {
