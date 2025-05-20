@@ -77,8 +77,8 @@ export const metadata: Metadata = {
   // アイコンの設定
   icons: {
     icon: "/favicon.ico", // アイコンの設定
-    // shortcut: "/favicon-16x16.png", // ショートカットアイコンの設定
-    // apple: "/apple-touch-icon.png", // iOSデバイスのアイコンの設定
+    shortcut: "/favicon-16x16.png", // ショートカットアイコンの設定
+    apple: "/apple-touch-icon.png", // iOSデバイスのアイコンの設定
   },
   manifest: `${siteConfig.url}/site.webmanifest`, // ウェブアプリケーションの設定を定義
 };
