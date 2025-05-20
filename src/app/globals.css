@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@plugin "@tailwindcss/typography"; // リッチテキストコンテンツ（ブログ記事やドキュメントなど）のスタイリングを簡単にする
+@plugin "@tailwindcss/typography"; /* リッチテキストコンテンツ（ブログ記事やドキュメントなど）のスタイリングを簡単にする */
 
 @custom-variant dark (&:is(.dark *));
 
