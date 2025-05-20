@@ -1,8 +1,8 @@
-import Link from "next/link"; // リンク
-import { cn } from "@/lib/utils"; //　ユーティリティ
-import { buttonVariants } from "@/components/ui/button"; // ボタン
-import { MainNav } from "@/components/main-nav"; // メインナビゲーション
-import { SiteFooter } from "@/components/site-footer"; // フッター
+import Link from "next/link"; // Next.js のリンクコンポーネント (リンクを表示する)
+import { cn } from "@/lib/utils"; // ユーティリティ関数ライブラリ
+import { buttonVariants } from "@/components/ui/button"; // ボタンコンポーネント (ボタンの表示を行う)
+import { MainNav } from "@/components/main-nav"; // メインナビゲーションコンポーネント (メインナビゲーションの表示を行う)
+import { SiteFooter } from "@/components/site-footer"; // フッターコンポーネント (フッターの表示を行う)
 import { marketingConfig } from "@/config/marketing"; // マーケティング設定
 
 export default function MarketingLayout({

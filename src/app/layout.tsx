@@ -3,11 +3,11 @@ import "./globals.css"; // グローバルスタイルシート
 import { Inter as FontSans } from "next/font/google"; // グローバルフォント
 import localFont from "next/font/local"; // ローカルフォント
 import { siteConfig } from "@/config/site"; // サイト設定
-import { cn } from "@/lib/utils"; // ユーティリティ
-import { Toaster } from "@/components/ui/sonner"; // トースター
-import { Analytics } from "@/components/analytics"; // アナリティクス
-import { TailwindIndicator } from "@/components/tailwind-indicator"; // インジケーター
-import { ThemeProvider } from "@/components/theme-provider"; // テーマプロバイダー
+import { cn } from "@/lib/utils"; // ユーティリティ関数ライブラリ
+import { Toaster } from "@/components/ui/sonner"; // トースターコンポーネント (トースターの表示を行う)
+import { Analytics } from "@/components/analytics"; // アナリティクスコンポーネント (Vercel Analytics の設定を有効化にする)
+import { TailwindIndicator } from "@/components/tailwind-indicator"; // インジケーターコンポーネント (Tailwind CSS のインジケーターの表示を行う)
+import { ThemeProvider } from "@/components/theme-provider"; // テーマプロバイダーコンポーネント (ライトモード・ダークモードの切り替えを制御する)
 
 // フォントの設定
 const fontSans = FontSans({
