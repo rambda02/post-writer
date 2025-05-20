@@ -31,7 +31,11 @@ async function getGitHubStars(): Promise<string | null> {
     // スター数を整形して返す
     return parseInt(json["stargazers_count"]).toLocaleString();
   } catch (error) {
-    console.error(error);
+    // 開発環境ではコンソールにもエラーを表示
+    if (process.env.NODE_ENV === "development") {
+      console.error("GitHub Stars Error:", error);
+    }
+
     return null;
   }
 }
