@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     card: "summary_large_image", // カードの設定
     title: siteConfig.name, // タイトル
     description: siteConfig.description, // 説明
-    images: [`${siteConfig.url}/og.png`], // 画像
+    images: siteConfig.ogImage, // 画像
     creator: "@rambda", // 作成者
   },
   // アイコンの設定

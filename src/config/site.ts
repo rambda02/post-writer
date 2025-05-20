@@ -9,7 +9,7 @@ export const siteConfig: SiteConfig = {
   // サイトのURL
   url: process.env.NEXTAUTH_URL || "http://localhost:3000",
   // サイトのOGP画像
-  ogImage: `${process.env.NEXTAUTH_URL}/og.png`,
+  ogImage: `${process.env.NEXTAUTH_URL}/og.jpg`,
   // リンクの設定
   links: {
     x: "https://x.com/rambda555", // Xのリンク
