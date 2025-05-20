@@ -1,24 +1,30 @@
-import { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
-import { notFound } from "next/navigation";
-import { allAuthors, allPosts } from "contentlayer/generated";
-import { absoluteUrl, cn, formatDate } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
-import { Mdx } from "@/components/mdx-components";
-import { siteConfig } from "@/config/site";
-import { Icon } from "@/components/icon";
+import { Metadata } from "next"; // Next.js のコアパッケージ
+import Link from "next/link"; // Next.js のリンクコンポーネント (リンクを表示する)
+import Image from "next/image"; // Next.js の画像コンポーネント (画像を表示する)
+import { notFound } from "next/navigation"; // Next.js のエラーハンドリングパッケージ (404 エラーを返す)
+import { allAuthors, allPosts } from "contentlayer/generated"; // Contentlayer の型付きデータパッケージ （Markdown ファイルから生成されたデータを型付きで取得する）
+import { absoluteUrl, cn, formatDate } from "@/lib/utils"; // ユーティリティ関数ライブラリ
+import { buttonVariants } from "@/components/ui/button"; // ボタンコンポーネント (ボタンの表示を行う)
+import { Mdx } from "@/components/mdx-components"; // MDX コンポーネント (Markdown を HTML に変換する)
+import { siteConfig } from "@/config/site"; // サイトの設定
+import { Icon } from "@/components/icon"; // アイコンコンポーネント (アイコンの表示を行う)
 
+// ダイナミックルーティングで受け取るパラメーターの型
 interface PostPageProps {
   params: Promise<{
     slug: string[];
   }>;
 }
 
+// パラメーターからブログ記事のデータを取得する関数
 async function getPostFromParams({ params }: PostPageProps) {
+  // パラメーターからslugを取得
   const slug = (await params).slug.join("/");
+
+  // ブログ記事のデータを取得
   const post = allPosts.find((post) => post.slugAsParams === slug);
 
+  // ブログ記事のデータが存在しない場合はnullを返す
   if (!post) {
     return null;
   }

@@ -1,4 +1,5 @@
-// tailwind CSSのデフォルトのテーマ設定 （アプリケーション全体のデザインシステム）　を提供するパッケージ
+// tailwind CSSのデフォルトのテーマ設定を提供するパッケージ
+// フォントファミリー、色、間隔、サイズなどのデフォルト値が含まれており、これらの値を拡張または上書きしてカスタマイズできる
 import { fontFamily } from "tailwindcss/defaultTheme";
 
 const config = {
@@ -11,7 +12,6 @@ const config = {
   ],
   // テーマの設定
   theme: {
-    // テーマの拡張
     extend: {
       fontFamily: {
         // フォントの設定
