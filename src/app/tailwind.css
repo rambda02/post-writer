@@ -7,7 +7,7 @@
     max-width: 100%; /* 最大幅 */
   }
 
-  @media (min-width: theme(--breakpoint-2xl)) {
+  @media (min-width: theme(screens.2xl)) {
     .container {
       max-width: 1400px; /* 2xlブレークポイントでの最大幅 (1400px) */
     }
