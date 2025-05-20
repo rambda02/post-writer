@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next"; // next.js のコアパッケージ
 import "./globals.css"; // グローバルスタイルシート
+import "./tailwind.css"; // テールウィンドウスタイルシート (tailwind.config.mjs の設定の移管先)
 import { Inter as FontSans } from "next/font/google"; // グローバルフォント
 import localFont from "next/font/local"; // ローカルフォント
 import { siteConfig } from "@/config/site"; // サイト設定
