@@ -18,8 +18,8 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
 /**
- * ドキュメントの基本型定義
- * Contentlayer がパースしたファイルのデータの型定義
+ * ドキュメントのファイルパス情報の型
+ * Contentlayer が処理するドキュメントの内部メタデータにアクセスするために使用
  */
 type DocumentWithRaw = {
   _raw: {
@@ -29,7 +29,7 @@ type DocumentWithRaw = {
 
 /**
  * 自動計算されるフィールドを返却する関数
- * @returns 自動計算されるフィールド（slug, slugAsParams）を含むオブジェクト
+ * @returns 自動計算されるフィールド （slug, slugAsParams） を含むオブジェクト
  */
 const createComputedFields = () => ({
   // ファイルパスを生成するフィールド
