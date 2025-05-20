@@ -1,4 +1,5 @@
 export function TailwindIndicator() {
+  // 本番環境では表示しない
   if (process.env.NODE_ENV === "production") return null
 
   return (
