@@ -4,22 +4,26 @@ import { allPosts } from "contentlayer/generated";
 import { compareDesc } from "date-fns";
 import { formatDate } from "@/lib/utils";
 
+// メタデータの設定
 export const metadata = {
+  // タイトルの設定
   title: "Blog",
 };
 
 export default function BlogPage() {
+  // 投稿を取得する
   const posts = allPosts
-    .filter((post) => post.published)
+    .filter((post) => post.published) // 公開されている投稿を取得する
     .sort((a, b) => {
-      return compareDesc(new Date(a.date), new Date(b.date));
+      return compareDesc(new Date(a.date), new Date(b.date)); // 降順の日付でソートする
     });
 
   return (
-    <div className="w-full mx-auto max-w-4xl px-8 py-6 lg:py-10">
+    <div className="w-full mx-auto px-8 max-w-4xl py-6 lg:py-10">
+      {/* 見出し */}
       <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
         <div className="flex-1 space-y-4">
-          <h1 className="inline-block font-bold text-4xl tracking-tight lg:text-5xl">
+          <h1 className="inline-block font-heading text-4xl tracking-tight lg:text-5xl">
             Blog
           </h1>
           <p className="text-xl text-muted-foreground">
@@ -27,7 +31,11 @@ export default function BlogPage() {
           </p>
         </div>
       </div>
+
+      {/* 区切り線 */}
       <hr className="my-8" />
+
+      {/* 投稿一覧 */}
       {posts?.length ? (
         <div className="grid gap-10 sm:grid-cols-2">
           {posts.map((post, index) => (
@@ -35,6 +43,7 @@ export default function BlogPage() {
               key={post._id}
               className="group relative flex flex-col space-y-2"
             >
+              {/* 画像 */}
               {post.image && (
                 <Image
                   src={post.image}
@@ -45,15 +54,23 @@ export default function BlogPage() {
                   priority={index <= 1}
                 />
               )}
+
+              {/* タイトル */}
               <h2 className="text-2xl font-extrabold">{post.title}</h2>
+
+              {/* 説明 */}
               {post.description && (
                 <p className="text-muted-foreground">{post.description}</p>
               )}
+
+              {/* 日付 */}
               {post.date && (
                 <p className="text-sm text-muted-foreground">
                   {formatDate(post.date)}
                 </p>
               )}
+
+              {/* リンク */}
               <Link href={post.slug} className="absolute inset-0">
                 <span className="sr-only">View Article</span>
               </Link>
