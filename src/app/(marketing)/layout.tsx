@@ -1,9 +1,9 @@
-import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
-import { MainNav } from "@/components/main-nav";
-import { SiteFooter } from "@/components/site-footer";
-import { marketingConfig } from "@/config/marketing";
+import Link from "next/link"; // リンク
+import { cn } from "@/lib/utils"; //　ユーティリティ
+import { buttonVariants } from "@/components/ui/button"; // ボタン
+import { MainNav } from "@/components/main-nav"; // メインナビゲーション
+import { SiteFooter } from "@/components/site-footer"; // フッター
+import { marketingConfig } from "@/config/marketing"; // マーケティング設定
 
 export default function MarketingLayout({
   children,

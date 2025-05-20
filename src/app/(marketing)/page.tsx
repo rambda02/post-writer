@@ -1,11 +1,12 @@
-import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
-import { siteConfig } from "@/config/site";
+import Link from "next/link"; // リンク
+import { cn } from "@/lib/utils"; // ユーティリティ
+import { buttonVariants } from "@/components/ui/button"; // ボタン
+import { siteConfig } from "@/config/site"; // サイト設定
 
-// GitHubリポジトリのスター数を取得する
+// GitHub　リポジトリのスター数を取得する
 async function getGitHubStars(): Promise<string | null> {
   try {
+    // GitHub　リポジトリ情報を取得する
     const response = await fetch(
       "https://api.github.com/repos/rambda555/post-writer",
       {
@@ -19,12 +20,15 @@ async function getGitHubStars(): Promise<string | null> {
       }
     );
 
+    // レスポンスが成功しなかった場合は　null　を返す
     if (!response?.ok) {
-      return null;
+      return null
     }
 
+    // レスポンスを　JSON　形式に変換する
     const json = await response.json();
 
+    // スター数を整形して返す
     return parseInt(json["stargazers_count"]).toLocaleString();
   } catch (error) {
     console.error(error);
