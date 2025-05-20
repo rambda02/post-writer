@@ -12,9 +12,15 @@ export default function MarketingLayout({
 }) {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="w-full max-w-[1400px] mx-auto px-8 z-40 bg-background">
+      
+      {/* ヘッダー */}
+      <header className="container z-40 bg-background">
         <div className="flex items-center justify-between h-20 py-6">
+
+          {/* メインナビゲーション */}
           <MainNav items={marketingConfig.mainNav} />
+
+          {/* ログインボタン */}
           <nav>
             <Link
               href="/login"
@@ -25,7 +31,11 @@ export default function MarketingLayout({
           </nav>
         </div>
       </header>
+
+      {/* メインコンテンツ */}
       <main className="flex-1">{children}</main>
+
+      {/* フッター */}
       <SiteFooter />
     </div>
   );
