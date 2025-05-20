@@ -11,13 +11,6 @@ const config = {
   ],
   // テーマの設定
   theme: {
-    container: {
-      center: true, // style: margin-inline: auto; tailwind: mx-auto
-      padding: "2rem", // style: padding-inline: 2rem; tailwind: px-4
-      screens: {
-        "2xl": "1400px", // style: max-width: 1400px; tailwind: max-w-7xl
-      },
-    },
     // テーマの拡張
     extend: {
       fontFamily: {

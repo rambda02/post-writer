@@ -141,3 +141,16 @@ h5.ce-header {
 h6.ce-header {
   @apply text-base font-semibold;
 }
+
+.container {
+  @apply mx-auto px-8;
+
+  /* 1400px未満の場合は100% */
+  @media (width < 1400px) {
+    max-width: 100%;
+  }
+  /* 1400px以上の場合は1400px */
+  @media (min-width: 1400px) {
+    max-width: 1400px;
+  }
+}
