@@ -59,12 +59,13 @@ export const Icon = {
       <path d="M21 12a9 9 0 1 1-6.219-8.56" />
     </svg>
   ),
-  github: () => (
+  github: ({ className }: { className: string }) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="200"
-      height="200"
+      width="24"
+      height="24"
       viewBox="0 0 432 416"
+      className={className}
     >
       <path
         fill="currentColor"
