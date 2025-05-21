@@ -16,7 +16,11 @@ interface PostPageProps {
   }>;
 }
 
-// パラメーターからブログ記事のデータを取得する関数
+/**
+ * パラメーターからブログ記事のデータを取得する関数
+ * @param params パラメーター
+ * @returns ブログ記事のデータ (Post) | null
+ */
 async function getPostFromParams({ params }: PostPageProps) {
   // パラメーターからslugを取得
   const slug = (await params).slug.join("/");
@@ -32,18 +36,26 @@ async function getPostFromParams({ params }: PostPageProps) {
   return post;
 }
 
+/**
+ * ブログ記事のメタデータを生成する関数
+ * @param params パラメーター
+ * @returns ブログ記事のメタデータ (Metadata) | {}
+ */
 export async function generateMetadata(
   params: PostPageProps
 ): Promise<Metadata> {
+  // パラメーターからブログ記事のデータを取得
   const post = await getPostFromParams(params);
 
+  // ブログ記事のデータが存在しない場合は空のオブジェクトを返す
   if (!post) {
     return {};
   }
 
-  const url = process.env.NEXTAUTH_URL || "http://localhost:3000";
+  // Open Graph のURLを生成
+  const ogUrl = new URL(`${siteConfig.url}/api/og`);
 
-  const ogUrl = new URL(`${url}/api/og`);
+  // Open Graph のURLにパラメーターを設定
   ogUrl.searchParams.set("heading", post.title);
   ogUrl.searchParams.set("type", "Blog Post");
   ogUrl.searchParams.set("mode", "dark");

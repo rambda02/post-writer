@@ -1,35 +1,60 @@
-import { ImageResponse } from "@vercel/og";
+import { ImageResponse } from "@vercel/og"; // Vercel の Open Graph 画像生成ライブラリ (HTML を生成して、それを画像に変換する)
+import { ogImageSchema } from "@/lib/validations/og"; // バリデーションスキーマ (バリデーションを行うためのスキーマ)
+import { siteConfig } from "@/config/site"; // サイトの設定
 
-import { ogImageSchema } from "@/lib/validations/og";
-import { siteConfig } from "@/config/site";
-
+// Vercel の Edge ランタイム上で実行されることを指定
+// この API ルートは通常の Node.js サーバーではなく、 Vercel のエッジランタイム上で実行される
+// Vercel のエッジランタイムは簡単に言うと「世界中に分散配置された超高速な実行環境」
+// エッジランタイムとはコンビニのように世界中に配置されている小さなサーバー
+// 最寄りの「エッジ」からデータを提供するので高速に動作する
+// リクエストが来ると、ユーザーに最も近いエッジロケーションで実行します
 export const runtime = "edge";
 
+// Inter-Regularフォントファイルを読み込む
 const interRegular = fetch(
+  // フォントファイルのパスを指定
   new URL("../../../assets/fonts/Inter-Regular.ttf", import.meta.url)
+   // レスポンスボディ（フォントデータ）をバイナリデータとして扱えるArrayBuffer形式に変換
 ).then((res) => res.arrayBuffer());
 
+// CalSans-SemiBoldフォントファイルを読み込む
 const interBold = fetch(
+  // フォントファイルのパスを指定
   new URL("../../../assets/fonts/CalSans-SemiBold.ttf", import.meta.url)
+  // レスポンスボディ（フォントデータ）をバイナリデータとして扱えるArrayBuffer形式に変換
 ).then((res) => res.arrayBuffer());
 
+/**
+ * Open Graph 画像を生成する API ルート
+ * @param req Requestオブジェクト
+ * @returns 生成された Open Graph 画像のバイナリデータ
+ */
 export async function GET(req: Request) {
   try {
+    // フォントデータを取得する
     const fontRegular = await interRegular;
     const fontBold = await interBold;
 
+    // リクエストのURLを解析する
     const url = new URL(req.url);
-    const values = ogImageSchema.parse(Object.fromEntries(url.searchParams));
-    const heading =
-      values.heading.length > 140
-        ? `${values.heading.substring(0, 140)}...`
-        : values.heading;
 
+    // クエリパラメータを JavaScript オブジェクトに変換しバリデーションする
+    const values = ogImageSchema.parse(Object.fromEntries(url.searchParams));
+
+    // ヘッディングの文字数をチェックし、140文字を超えていたら省略する
+    const heading =
+      values.heading.length > 140 // ヘッディングの文字数が140文字を超えていたら
+        ? `${values.heading.substring(0, 140)}...` // 140文字を超えていたら140文字までを取得し、末尾に...を追加
+        : values.heading; // 140文字を超えていなかったらそのまま
+
+    // モードを取得し、モードに応じて色を設定する
     const { mode } = values;
     const paint = mode === "dark" ? "#fff" : "#000";
 
+    // フォントサイズを設定する
     const fontSize = heading.length > 100 ? "70px" : "100px";
 
+    // 画像を生成する (バイナリデータを返す)
     return new ImageResponse(
       (
         <div
