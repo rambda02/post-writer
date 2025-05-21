@@ -1,8 +1,11 @@
-import { HeroSection } from "@/components/marketing/HeroSection";
-import { FeaturesSection } from "@/components/marketing/FeaturesSection";
-import { OpenSourceSection } from "@/components/marketing/OpenSourceSection";
+import { HeroSection } from "@/components/marketing/HeroSection"; // Hero セクションコンポーネント (Hero セクションの表示を行う)
+import { FeaturesSection } from "@/components/marketing/FeaturesSection"; // Features セクションコンポーネント (Features セクションの表示を行う)
+import { OpenSourceSection } from "@/components/marketing/OpenSourceSection"; // Open Source セクションコンポーネント (Open Source セクションの表示を行う)
 
-// GitHub　リポジトリのスター数を取得する
+/**
+ * GitHub リポジトリのスター数を取得する
+ * @returns スター数 string |　null
+ */
 async function getGitHubStars(): Promise<string | null> {
   try {
     // GitHub　リポジトリ情報を取得する
