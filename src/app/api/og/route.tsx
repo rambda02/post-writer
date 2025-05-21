@@ -16,7 +16,7 @@ export const runtime = "edge";
 const interRegular = fetch(
   // フォントファイルのパスを指定
   new URL("../../../assets/fonts/Inter-Regular.ttf", import.meta.url)
-   // レスポンスボディ（フォントデータ）をバイナリデータとして扱えるArrayBuffer形式に変換
+  // レスポンスボディ （フォントデータ） をバイナリデータとして扱える ArrayBuffer 形式に変換
 ).then((res) => res.arrayBuffer());
 
 // CalSans-SemiBoldフォントファイルを読み込む
@@ -69,7 +69,10 @@ export async function GET(req: Request) {
                 : "white",
           }}
         >
+          {/* Next.js ロゴ */}
           <Logo.nextjs paint={paint} />
+
+          {/* ヘッディング */}
           <div tw="flex flex-col flex-1 py-10">
             <div
               tw="flex text-xl uppercase font-bold tracking-tight"
@@ -89,13 +92,17 @@ export async function GET(req: Request) {
               {heading}
             </div>
           </div>
+
           <div tw="flex items-center w-full justify-between">
+            {/* サイト名 */}
             <div
               tw="flex text-xl"
               style={{ fontFamily: "Inter", fontWeight: "normal" }}
             >
               {new URL(siteConfig.url).host}
             </div>
+
+            {/* GitHubリポジトリ */}
             <div
               tw="flex items-center text-xl"
               style={{ fontFamily: "Inter", fontWeight: "normal" }}
@@ -110,8 +117,11 @@ export async function GET(req: Request) {
         </div>
       ),
       {
+        // 画像の幅と高さを設定
         width: 1200,
         height: 630,
+
+        // フォントを設定
         fonts: [
           {
             name: "Inter",
@@ -129,7 +139,12 @@ export async function GET(req: Request) {
       }
     );
   } catch (error) {
-    console.error(error);
+    // 開発環境ではコンソールエラーを表示
+    if (process.env.NODE_ENV === "development") {
+      console.error(error);
+    }
+
+    // エラーが発生した場合は500エラーを返す
     return new Response(`Failed to generate image`, {
       status: 500,
     });
