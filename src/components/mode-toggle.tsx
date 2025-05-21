@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Icon } from "@/components/icon";
+import { Icon } from "@/components/Icon";
 import { cn } from "@/lib/utils";
 
 export function ModeToggle() {

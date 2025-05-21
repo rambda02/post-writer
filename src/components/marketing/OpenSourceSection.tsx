@@ -1,6 +1,6 @@
 import Link from "next/link"; // リンク
 import { siteConfig } from "@/config/site"; // サイト設定
-import { Icon } from "@/components/icon"; // アイコン
+import { Icon } from "@/components/Icon"; // アイコン
 
 export const OpenSourceSection = ({ stars }: { stars: string | null }) => {
   return (

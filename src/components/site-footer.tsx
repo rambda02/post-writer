@@ -1,6 +1,6 @@
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { Icon } from "./icon";
+import { Icon } from "@/components/Icon";
 import { ModeToggle } from "./mode-toggle";
 
 export const SiteFooter = ({

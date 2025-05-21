@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "./ui/button";
-import { Icon } from "./icon";
+import { Icon } from "@/components/Icon";
 import { VariantProps } from "class-variance-authority";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";

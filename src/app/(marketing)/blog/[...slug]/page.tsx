@@ -7,7 +7,7 @@ import { absoluteUrl, cn, formatDate } from "@/lib/utils"; // ユーティリテ
 import { buttonVariants } from "@/components/ui/button"; // ボタンコンポーネント (ボタンの表示を行う)
 import { Mdx } from "@/components/mdx-components"; // MDX コンポーネント (Markdown を HTML に変換する)
 import { siteConfig } from "@/config/site"; // サイトの設定
-import { Icon } from "@/components/icon"; // アイコンコンポーネント (アイコンの表示を行う)
+import { Icon } from "@/components/Icon"; // アイコンコンポーネント (アイコンの表示を行う)
 
 // ダイナミックルーティングで受け取るパラメーターの型
 interface PostPageProps {
