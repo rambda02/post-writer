@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   },
   // 説明の設定
   description: siteConfig.description,
-  // キーワードの設定 (SEO対策、検索エンジンのためのキーワード)
+  // キーワードの設定 (SEO 対策、検索エンジンのためのキーワード)
   keywords: [
     "Next.js",
     "React",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     "Server Components",
     "Radix UI",
   ],
-  // 著者の設定 (コンテンツの著者として、より詳細な情報（URLを含む）を提供)
+  // 著者の設定 (コンテンツの著者として、より詳細な情報 （URL を含む） を提供)
   authors: [
     {
       name: "rambda",
@@ -57,17 +57,17 @@ export const metadata: Metadata = {
   ],
   // 作成者の設定 （シンプルに作成者名のみを指定）
   creator: "@rambda",
-  // Open Graphの設定 (SEO対策、SNSシェアのための設定)
+  // Open Graph の設定 (SEO 対策、 SNS シェアのための設定)
   openGraph: {
     type: "website", // ウェブサイトの設定
     locale: "ja", // 言語の設定
     siteName: siteConfig.name, // サイトの名前
-    url: siteConfig.url, // サイトのURL
+    url: siteConfig.url, // サイトの URL
     title: siteConfig.name, // タイトル
     description: siteConfig.description, // 説明
     images: siteConfig.ogImage, // 画像
   },
-  // Twitterの設定 (SEO対策、SNSシェアのための設定)
+  // Twitter の設定 (SEO 対策、 SNS シェアのための設定)
   twitter: {
     card: "summary_large_image", // カードの設定
     title: siteConfig.name, // タイトル
@@ -79,7 +79,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico", // アイコンの設定
     // shortcut: "/favicon-16x16.png", // ショートカットアイコンの設定
-    // apple: "/apple-touch-icon.png", // iOSデバイスのアイコンの設定
+    // apple: "/apple-touch-icon.png", // iOS デバイスのアイコンの設定
   },
   manifest: `${siteConfig.url}/site.webmanifest`, // ウェブアプリケーションの設定を定義
 };
@@ -90,16 +90,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="ja" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased", // フォントが読み込まれるまではfont-sansが適用される
+          "min-h-screen bg-background font-sans antialiased", // フォントが読み込まれるまでは font-sans が適用される
           fontSans.variable, // フォントの設定
           fontHeading.variable // ヘッダーのフォントの設定
         )}
       >
         <ThemeProvider
-          attribute="class" // テーマの属性 (class: クラスを使用してテーマを適用)
+          attribute="class" // テーマの属性 (class を使用してテーマを適用)
           defaultTheme="system" // デフォルトのテーマ
           enableSystem // システムテーマの有効化
           disableTransitionOnChange // トランジションの無効化
