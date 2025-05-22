@@ -1,4 +1,4 @@
-// マークダウンやMDXなどのコンテンツファイルを構造化されたデータに変換するためのNode.js用のライブラリ
+// マークダウンや MDX などのコンテンツファイルを構造化されたデータに変換するための Node.js 用のライブラリ
 import { defineDocumentType, makeSource } from "contentlayer2/source-files";
 
 // Markdown ヘッダーに自動的にリンクを追加する rehype プラグイン
@@ -10,17 +10,15 @@ import rehypePrettyCode, {
   type CharsElement,
 } from "rehype-pretty-code";
 
-// ヘッダーの ID を自動生成する rehype プラグイン
+// ヘッダーのIDを自動生成する rehype プラグイン
 import rehypeSlug from "rehype-slug";
 
-// マークダウンのGFM（GitHub Flavored Markdown）をサポートするremark プラグイン 
-// (テーブル記法、タスクリスト、取り消し線などの機能をサポートする)
+// マークダウンの GFM（GitHub Flavored Markdown） をサポートする remark プラグイン
+// テーブル記法、タスクリスト、取り消し線などの機能をサポートする
 import remarkGfm from "remark-gfm";
 
-/**
- * ドキュメントのファイルパス情報の型
- * Contentlayer が処理するドキュメントの内部メタデータにアクセスするために使用
- */
+// ドキュメントのファイルパス情報の型
+// Contentlayer が処理するドキュメントの内部メタデータにアクセスするために使用
 type DocumentWithRaw = {
   _raw: {
     flattenedPath: string;
@@ -35,11 +33,10 @@ const createComputedFields = () => ({
   // ファイルパスを生成するフィールド
   slug: {
     type: "string" as const,
-    resolve: (doc: DocumentWithRaw) => `/${doc._raw.flattenedPath}`, // ファイルパスを取得して、/ で結合して返す
+    resolve: (doc: DocumentWithRaw) => `/${doc._raw.flattenedPath}`, // ファイルパスを取得して、 / で結合して返す
   },
+
   // ファイルパスをパラメータ形式に変換するフィールド
-  // _raw.flattenedPath: blog/nextjs/getting-started
-  // slugAsParamsの計算結果: nextjs/getting-started
   slugAsParams: {
     type: "string" as const,
 
@@ -49,18 +46,16 @@ const createComputedFields = () => ({
   },
 });
 
-/**
- * Docタイプのドキュメント (ドキュメント) の定義
- */
-// defineDocumentType: マークダウンやMDXファイルから構造化されたデータを生成するためのスキーマを定義する関数
+// Doc タイプのドキュメントの定義
+// defineDocumentType - マークダウンや MDX ファイルから構造化されたデータを生成するための関数
 export const Doc = defineDocumentType(() => ({
   // ドキュメントの名前
   name: "Doc",
 
-  // ドキュメントのパスパターン (どのファイルをDocタイプのドキュメントとして処理するかを指定)
+  // ドキュメントのパスパターン (どのファイルを Doc タイプのドキュメントとして処理するかを指定)
   filePathPattern: `docs/**/*.mdx`,
 
-  // ドキュメントのコンテンツタイプ (マークダウンやMDXファイルを指定)
+  // ドキュメントのコンテンツタイプ (マークダウンや MDX ファイルを指定)
   contentType: "mdx",
 
   // ドキュメントのフィールド
@@ -85,17 +80,15 @@ export const Doc = defineDocumentType(() => ({
   computedFields: createComputedFields(),
 }));
 
-/**
- * Guideタイプのドキュメント (ガイド) の定義
- */
+// Guide タイプのドキュメント (ガイド) の定義
 export const Guide = defineDocumentType(() => ({
   // ドキュメントの名前
   name: "Guide",
 
-  // ドキュメントのパスパターン (どのファイルをGuideタイプのドキュメントとして処理するかを指定)
+  // ドキュメントのパスパターン (どのファイルを Guide タイプのドキュメントとして処理するかを指定)
   filePathPattern: `guides/**/*.mdx`,
 
-  // ドキュメントのコンテンツタイプ (マークダウンやMDXファイルを指定)
+  // ドキュメントのコンテンツタイプ (マークダウンや MDX ファイルを指定)
   contentType: "mdx",
 
   // ドキュメントのフィールド
@@ -130,17 +123,15 @@ export const Guide = defineDocumentType(() => ({
   computedFields: createComputedFields(),
 }));
 
-/**
- * Postタイプのドキュメント (ブログ記事) の定義
- */
+// Post タイプのドキュメント (ブログ記事) の定義
 export const Post = defineDocumentType(() => ({
   // ドキュメントの名前
   name: "Post",
 
-  // ドキュメントのパスパターン (どのファイルをPostタイプのドキュメントとして処理するかを指定)
+  // ドキュメントのパスパターン (どのファイルを Post タイプのドキュメントとして処理するかを指定)
   filePathPattern: `blog/**/*.mdx`,
 
-  // ドキュメントのコンテンツタイプ (マークダウンやMDXファイルを指定)
+  // ドキュメントのコンテンツタイプ (マークダウンや MDX ファイルを指定)
   contentType: "mdx",
 
   // ドキュメントのフィールド
@@ -185,17 +176,15 @@ export const Post = defineDocumentType(() => ({
   computedFields: createComputedFields(),
 }));
 
-/**
- * Authorタイプのドキュメント (著者) の定義
- */
+// Author タイプのドキュメント (著者) の定義
 export const Author = defineDocumentType(() => ({
   // ドキュメントの名前
   name: "Author",
 
-  // ドキュメントのパスパターン (どのファイルをAuthorタイプのドキュメントとして処理するかを指定)
+  // ドキュメントのパスパターン (どのファイルを Author タイプのドキュメントとして処理するかを指定)
   filePathPattern: `authors/**/*.mdx`,
 
-  // ドキュメントのコンテンツタイプ (マークダウンやMDXファイルを指定)
+  // ドキュメントのコンテンツタイプ (マークダウンや MDX ファイルを指定)
   contentType: "mdx",
 
   // ドキュメントのフィールド
@@ -225,17 +214,15 @@ export const Author = defineDocumentType(() => ({
   computedFields: createComputedFields(),
 }));
 
-/**
- * Pageタイプのドキュメント (ページ) の定義
- */
+// Page タイプのドキュメント (ページ) の定義
 export const Page = defineDocumentType(() => ({
   // ドキュメントの名前
   name: "Page",
 
-  // ドキュメントのパスパターン (どのファイルをPageタイプのドキュメントとして処理するかを指定)
+  // ドキュメントのパスパターン (どのファイルを Page タイプのドキュメントとして処理するかを指定)
   filePathPattern: `pages/**/*.mdx`,
 
-  // ドキュメントのコンテンツタイプ (マークダウンやMDXファイルを指定)
+  // ドキュメントのコンテンツタイプ (マークダウンや MDX ファイルを指定)
   contentType: "mdx",
 
   // ドキュメントのフィールド
@@ -255,9 +242,7 @@ export const Page = defineDocumentType(() => ({
   computedFields: createComputedFields(),
 }));
 
-/**
- * Contentlayer の設定
- */
+// Contentlayer の設定
 export default makeSource({
   // コンテンツディレクトリのパス
   contentDirPath: "./src/content",
@@ -287,7 +272,7 @@ export default makeSource({
 
           // 各行 （LineElement） を訪問する度に呼び出されるコールバック関数
           onVisitLine(node: LineElement) {
-            // display: grid CSSプロパティが使用されている環境では、空の行（内容がない行）が視覚的に潰れてしまう問題がある
+            // display: grid; プロパティが使用されている環境では、空の行 （内容がない行） が視覚的に潰れてしまう問題がある
             // ユーザーが空の行をコピー＆ペーストしようとしても、内容がないため操作が難しくなる
 
             // 行に子要素がない場合
@@ -327,7 +312,7 @@ export default makeSource({
           properties: {
             className: ["subheading-anchor"],
 
-            // ヘッダーのリンクのaria-labelを指定する
+            // ヘッダーのリンクの aria-label を指定する
             ariaLabel: "Link to section",
           },
         },

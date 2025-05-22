@@ -3,26 +3,24 @@
     // インポートパスの基準ディレクトリ
     "baseUrl": ".",
 
-    // 出力するコードのECMAScriptのバージョン
+    // 出力するコードの ECMAScript のバージョン
     "target": "ES2017",
 
-    // コンパイル時に利用する型定義ライブラリ （.d.tsファイル内の型定義を読み込むために必要）
-    // dom -ブラウザのDOM操作
-    // dom.iterable - DOMイテレーション用
-    // esnext - 最新のJavaScript機能
+    // コンパイル時に利用する型定義ライブラリ （.d.ts ファイル内の型定義を読み込むために必要）
+    // dom - ブラウザの DOM 操作
+    // dom.iterable - DOM イテレーション用
+    // esnext - 最新の JavaScript 機能
     "lib": ["dom", "dom.iterable", "esnext"],
 
-    // プロジェクト内のJavaScriptファイルも処理対象に含める （.jsファイルを読み込むために必要）
+    // プロジェクト内の JavaScript ファイルも処理対象に含める （.js ファイルを読み込むために必要）
     "allowJs": true,
 
     // 外部ライブラリの型チェックをスキップ
     "skipLibCheck": true,
 
     // 厳格な型チェックを有効化
-    // noImplicitAny - 型が明示されていない場合にany型を暗黙的に割り当てることを禁止
-    // strictNullChecks - nullとundefinedを他の型と区別して扱う
-    // strictFunctionTypes, strictBindCallApply - 関数の型チェックを厳格化
-    // strictPropertyInitialization - プロパティの初期化を厳格化
+    // noImplicitAny - 型が明示されていない場合に any 型を暗黙的に割り当てることを禁止
+    // strictNullChecks - null と undefined を他の型と区別して扱う
     // strict - 上記の厳格な型チェックを有効化
     "strict": true,
 
@@ -30,12 +28,12 @@
     // ファイルの生成はバンドル時のみ行う
     "noEmit": true,
 
-    // 古いCommonJS互換性を有効化
+    // 古い CommonJS 互換性を有効化
     // 例: import * as React from 'react' を import React from 'react' に変換
     "esModuleInterop": true,
 
-    // TypeScriptの出力モジュール形式 (バンドラーに渡すコードの形式)
-    // esnext = 最新のECMAScript Module形式 （import/export構文）
+    // TypeScript の出力モジュール形式 (バンドラーに渡すコードの形式)
+    // esnext = 最新の ECMAScript Module 形式 （import/export 構文）
     // 例: import { Button } from './components'; → import { Button } from './components';
     "module": "esnext",
 
@@ -43,23 +41,23 @@
     // bundler = バンドルツールのモジュール解決方式
     "moduleResolution": "bundler",
 
-    // JSONファイルをモジュールとして解決
-    // JSONファイルを直接インポートできるようにする設定
+    // JSON ファイルをモジュールとして解決
+    // JSON ファイルを直接インポートできるようにする設定
     "resolveJsonModule": true,
 
     // 独立したモジュールを生成を有効化
     // モジュールを独立して生成することで、モジュールの衝突を防ぐ
     // ファイルを独立して処理できるため、並列処理が可能になり、大規模プロジェクトでのビルド速度が向上
-    // Next.js、Viteなどの高速変換ツールと互換性を持たせるための設定
+    // Next.js、Vite などの高速変換ツールと互換性を持たせるための設定
     "isolatedModules": true,
 
-    // JSXの処理方式
+    // JSX の処理方式
     // <div>Hello</div>　のような構文をどう扱うか決める設定
-    // preserve = 元のJSX構文をそのまま保持
+    // preserve = 元の JSX 構文をそのまま保持
     // 例:　const element = <div>Hello</div>;
     "jsx": "preserve",
 
-    // TypeScriptのコンパイル速度を向上させるための設定
+    // TypeScript のコンパイル速度を向上させるための設定
     // 主な機能
     //  1. 前回のコンパイル情報を保存し再利用
     //  2. 依存関係を分析し、必要なファイルのみを再コンパイル
@@ -68,14 +66,14 @@
     // プラグインの設定
     "plugins": [
       {
-        // Next.jsプロジェクト向けのTypeScript拡張機能
+        // Next.js プロジェクト向けの TypeScript 拡張機能
         // 1. ページルーティングの型チェック
         //  例：　pages/user/[id].tsx → type Params = { id: string; }
         //
-        // 2. getStaticProps, getServerSidePropsなどの関数の型定義
+        // 2. getStaticProps,getServerSideProps などの関数の型定義
         //  例：　const getStaticProps: GetStaticProps<{ posts: Post[] }> = async () => {
         //
-        // 3. Next.js固有のAPI型を提供
+        // 3. Next.js 固有の API 型を提供
         //  例：　const router = useRouter();
         "name": "next"
       }
@@ -92,7 +90,7 @@
   },
 
   // コンパイル対象のファイルを指定
-  // TypeScriptに 「これらのファイルを型チェック・処理してください」 と伝える
+  // TypeScript に 「これらのファイルを型チェック・処理してください」 と伝える
   "include": [
     "next-env.d.ts",
     "**/*.ts",
