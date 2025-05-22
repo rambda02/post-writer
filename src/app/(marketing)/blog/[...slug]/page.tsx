@@ -107,35 +107,41 @@ export async function generateStaticParams(): Promise<
 > {
   return allPosts.map((post) => ({
     // すべてのブログ記事に対して、 slugAsParams プロパティを取得して、 / で分割した配列を返す
-    // 例：　{slug: ["blog", "first-post"]}
+    // 例： 　{slug: ["blog", "first-post"]}
     slug: post.slugAsParams.split("/"),
   }));
 }
 
 export default async function PostPage(params: PostPageProps) {
+  // パラメーターからブログ記事を取得する
   const post = await getPostFromParams(params);
 
+  // ブログ記事が存在しない場合は 404 エラーを返す
   if (!post) {
     notFound();
   }
 
+  // 著者のデータを取得する
   const authors = post.authors.map((author) =>
     allAuthors.find(({ slug }) => slug === `/authors/${author}`)
   );
 
   return (
     <article className="w-full mx-auto px-8 relative max-w-3xl py-6 lg:py-10">
+      {/* ブログ記事の一覧へのリンク */}
       <Link
         href="/blog"
         className={cn(
-          buttonVariants({ variant: "ghost" }),
+          buttonVariants({ variant: "ghost", size: "lg" }),
           "absolute left-[-200px] top-14 hidden xl:inline-flex"
         )}
       >
         <Icon.chevronLeft />
         See all posts
       </Link>
+
       <div>
+        {/* ブログ記事の日付 */}
         {post.date && (
           <time
             dateTime={post.date}
@@ -144,9 +150,13 @@ export default async function PostPage(params: PostPageProps) {
             Published on {formatDate(post.date)}
           </time>
         )}
-        <h1 className="mt-2 inline-block font-bold text-4xl leading-tighter lg:text-5xl tracking-tighter">
+
+        {/* ブログ記事のタイトル */}
+        <h1 className="mt-2 inline-block font-heading text-4xl leading-tighter lg:text-5xl">
           {post.title}
         </h1>
+
+        {/* ブログ記事の著者 */}
         {authors?.length ? (
           <div className="mt-4 flex space-x-4">
             {authors.map((author) =>
@@ -175,6 +185,8 @@ export default async function PostPage(params: PostPageProps) {
           </div>
         ) : null}
       </div>
+
+      {/* ブログ記事の画像 */}
       {post.image && (
         <Image
           src={post.image}
@@ -185,10 +197,19 @@ export default async function PostPage(params: PostPageProps) {
           priority
         />
       )}
+
+      {/* ブログ記事の内容 */}
       <Mdx code={post.body.code} />
+
+      {/* ブログ記事の区切り線 */}
       <hr className="mt-12" />
+
+      {/* ブログ記事の一覧へのリンク */}
       <div className="flex justify-center py-6 lg:py-10">
-        <Link href="/blog" className={cn(buttonVariants({ variant: "ghost" }))}>
+        <Link
+          href="/blog"
+          className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
+        >
           <Icon.chevronLeft className="mr-2 h-4 w-4" />
           See all posts
         </Link>
