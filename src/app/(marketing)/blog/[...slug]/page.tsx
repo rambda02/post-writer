@@ -22,13 +22,13 @@ interface PostPageProps {
  * @returns ブログ記事のデータ (Post) | null
  */
 async function getPostFromParams({ params }: PostPageProps) {
-  // パラメーターからslugを取得
+  // パラメーターから slug を取得
   const slug = (await params).slug.join("/");
 
   // ブログ記事のデータを取得
   const post = allPosts.find((post) => post.slugAsParams === slug);
 
-  // ブログ記事のデータが存在しない場合はnullを返す
+  // ブログ記事のデータが存在しない場合は null を返す
   if (!post) {
     return null;
   }
@@ -52,50 +52,62 @@ export async function generateMetadata(
     return {};
   }
 
-  // Open Graph のURLを生成
+  // Open Graph の URL を生成
   const ogUrl = new URL(`${siteConfig.url}/api/og`);
 
-  // Open Graph のURLにパラメーターを設定
+  // Open Graph の URL にパラメーターを設定
   ogUrl.searchParams.set("heading", post.title);
   ogUrl.searchParams.set("type", "Blog Post");
   ogUrl.searchParams.set("mode", "dark");
 
   return {
-    title: post.title,
-    description: post.description,
+    title: post.title, // タイトル
+    description: post.description, // 説明
+    // 著者
     authors: post.authors.map((author) => ({
       name: author,
     })),
+
+    // Open Graphの設定 (SEO 対策、 SNS シェアのための設定)
     openGraph: {
-      title: post.title,
-      description: post.description,
-      type: "article",
-      url: absoluteUrl(post.slug),
+      title: post.title, // タイトル
+      description: post.description, // 説明
+      type: "article", // ウェブサイトの設定
+      url: absoluteUrl(post.slug), // サイトの URL
+      // Open Graph 画像の設定
       images: [
         {
-          url: ogUrl.toString(),
-          width: 1200,
-          height: 630,
-          alt: post.title,
+          url: ogUrl.toString(), // Open Graph 画像の URL
+          width: 1200, // 画像の幅
+          height: 630, // 画像の高さ
+          alt: post.title, // 画像の代替テキスト
         },
       ],
-      locale: "ja",
-      siteName: siteConfig.name,
+      locale: "ja", // 言語の設定
+      siteName: siteConfig.name, // サイトの名前
     },
+    // Twitter の設定 (SEO 対策、 SNS シェアのための設定)
     twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description: post.description,
-      images: [ogUrl.toString()],
-      creator: "@rambda",
+      card: "summary_large_image", // カードの設定
+      title: post.title, // タイトル
+      description: post.description, // 説明
+      images: [ogUrl.toString()], // 画像
+      creator: "@rambda", // 作成者
     },
   };
 }
 
+/**
+ * 動的ルーティングのページをビルド時に静的生成する
+ * パラメーター (...slug) を Next.js に渡して、各ブログ記事を事前に静的生成する
+ * @returns ブログ記事のパラメーター (PostPageProps["params"][])
+ */
 export async function generateStaticParams(): Promise<
   Awaited<PostPageProps["params"]>[]
 > {
   return allPosts.map((post) => ({
+    // すべてのブログ記事に対して、 slugAsParams プロパティを取得して、 / で分割した配列を返す
+    // 例：　{slug: ["blog", "first-post"]}
     slug: post.slugAsParams.split("/"),
   }));
 }

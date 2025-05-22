@@ -4,7 +4,7 @@ import { OpenSourceSection } from "@/components/marketing/OpenSourceSection"; //
 
 /**
  * GitHub リポジトリのスター数を取得する
- * @returns スター数 string |　null
+ * @returns スター数 (string) |　null
  */
 async function getGitHubStars(): Promise<string | null> {
   try {
@@ -43,7 +43,7 @@ async function getGitHubStars(): Promise<string | null> {
 }
 
 export default async function IndexPage() {
-  // GitHubリポジトリのスター数を取得する
+  // GitHub リポジトリのスター数を取得する
   const stars = await getGitHubStars();
 
   return (
