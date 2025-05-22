@@ -1,15 +1,15 @@
-// Next.js フレームワークのコアパッケージ
+// Next.jsフレームワークのコアパッケージ
 import type { NextConfig } from "next";
 
-// Contentlayer を使用してNext.jsプロジェクトでコンテンツを管理するためのライブラリ
+// Contentlayerを使用してNext.jsプロジェクトでコンテンツを管理するためのライブラリ
 import { withContentlayer } from "next-contentlayer2";
 
-// Next.js の設定を行う
-// NextConfig: Next.js アプリケーションの設定を定義するためのインターフェース
-// reactStrictMode: React の Strict Mode を有効にするかどうか
-// デフォルトでは true になっているが、開発環境では false にすることが多い
+// Next.jsの設定を行う
+// NextConfig - Next.jsアプリケーションの設定を定義するためのインターフェース
+// reactStrictMode - ReactのStrictModeを有効にするかどうか
+// デフォルトではtrueになっているが、開発環境ではfalseにすることが多い
 const nextConfig: NextConfig = { reactStrictMode: true };
 
-// ContentLayer の機能を Next.js プロジェクトに統合する
-// withContentlayer: Contentlayer の設定を行うための関数
+// ContentLayerの機能をNext.jsプロジェクトに統合する
+// withContentlayer - Contentlayerの設定を行うための関数
 export default withContentlayer(nextConfig);
