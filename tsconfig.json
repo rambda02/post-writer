@@ -7,52 +7,40 @@
     "target": "ES2017",
 
     // コンパイル時に利用する型定義ライブラリ （.d.tsファイル内の型定義を読み込むために必要）
+    // dom -ブラウザのDOM操作
+    // dom.iterable - DOMイテレーション用
+    // esnext - 最新のJavaScript機能
     "lib": ["dom", "dom.iterable", "esnext"],
 
-    // プロジェクト内の JavaScript ファイルも処理対象に含める （.jsファイルを読み込むために必要）
+    // プロジェクト内のJavaScriptファイルも処理対象に含める （.jsファイルを読み込むために必要）
     "allowJs": true,
 
     // 外部ライブラリの型チェックをスキップ
     "skipLibCheck": true,
 
     // 厳格な型チェックを有効化
-    // noImplicitAny: 型が明示されていない場合に any 型を暗黙的に割り当てることを禁止
-    // strictNullChecks: null と undefined を他の型と区別して扱う
-    // strictFunctionTypes, strictBindCallApply: 関数の型チェックを厳格化
-    // strictPropertyInitialization: プロパティの初期化を厳格化
-    // strict: 上記の厳格な型チェックを有効化
+    // noImplicitAny - 型が明示されていない場合にany型を暗黙的に割り当てることを禁止
+    // strictNullChecks - nullとundefinedを他の型と区別して扱う
+    // strictFunctionTypes, strictBindCallApply - 関数の型チェックを厳格化
+    // strictPropertyInitialization - プロパティの初期化を厳格化
+    // strict - 上記の厳格な型チェックを有効化
     "strict": true,
 
-    // コンパイラ (tsc) が出力したファイルを生成しない
+    // コンパイラ (tsc) が出力したファイルを生成しない (コンパイル後のファイルを生成しない)
     // ファイルの生成はバンドル時のみ行う
     "noEmit": true,
 
-    // 古い CommonJS 互換性を有効化
-    // (例) import * as React from 'react' を import React from 'react' に変換
+    // 古いCommonJS互換性を有効化
+    // 例: import * as React from 'react' を import React from 'react' に変換
     "esModuleInterop": true,
 
     // TypeScriptの出力モジュール形式 (バンドラーに渡すコードの形式)
-    // esnext = 最新のECMAScript Module形式（import/export構文）
-    //
-    // esnextの場合
-    //  入力: TypeScript
-    //  import { Button } from './components';
-    //  export function App() { ... }
-    //  出力: JavaScript
-    //  import { Button } from './components';
-    //  export function App() { ... }
+    // esnext = 最新のECMAScript Module形式 （import/export構文）
+    // 例: import { Button } from './components'; → import { Button } from './components';
     "module": "esnext",
 
     // モジュール解決の方法
     // bundler = バンドルツールのモジュール解決方式
-    // node = 古いNode.js方式（CommonJS優先）
-    // nodenext = Node.jsの最新方式（ESM優先）
-    //
-    // bundlerの特徴
-    //  Webpack、Vite、esbuild等のモダンバンドラーと互換性のある解決方式
-    //  package.jsonのexportsフィールド対応（条件付きエントリポイント）
-    //  .ts、.tsx、.js、.jsxなどの拡張子自動解決
-    //  node_modules探索アルゴリズム
     "moduleResolution": "bundler",
 
     // JSONファイルをモジュールとして解決
@@ -61,15 +49,14 @@
 
     // 独立したモジュールを生成を有効化
     // モジュールを独立して生成することで、モジュールの衝突を防ぐ
+    // ファイルを独立して処理できるため、並列処理が可能になり、大規模プロジェクトでのビルド速度が向上
     // Next.js、Viteなどの高速変換ツールと互換性を持たせるための設定
     "isolatedModules": true,
 
     // JSXの処理方式
-    // <div>Hello</div>のような構文をどう扱うか決める設定
+    // <div>Hello</div>　のような構文をどう扱うか決める設定
     // preserve = 元のJSX構文をそのまま保持
-    //  例：　const element = <div>Hello</div>;
-    // react = ReactのJSX構文に変換
-    //  例：　const element = React.createElement("div", null, "Hello");
+    // 例:　const element = <div>Hello</div>;
     "jsx": "preserve",
 
     // TypeScriptのコンパイル速度を向上させるための設定
@@ -105,7 +92,7 @@
   },
 
   // コンパイル対象のファイルを指定
-  // TypeScriptに「これらのファイルを型チェック・処理してください」と伝える
+  // TypeScriptに 「これらのファイルを型チェック・処理してください」 と伝える
   "include": [
     "next-env.d.ts",
     "**/*.ts",
