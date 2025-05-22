@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@plugin "@tailwindcss/typography"; /* リッチテキストコンテンツ（ブログ記事やドキュメントなど）のスタイリングを簡単にする */
+@plugin "@tailwindcss/typography"; /* リッチテキストコンテンツ （ブログ記事やドキュメントなど） のスタイリングを簡単にする */
 
 @custom-variant dark (&:is(.dark *));
 
@@ -145,11 +145,11 @@ h6.ce-header {
 .container {
   @apply mx-auto px-8;
 
-  /* 1400px未満の場合は100% */
+  /* 1400px 未満の場合は 100% */
   @media (width < 1400px) {
     max-width: 100%;
   }
-  /* 1400px以上の場合は1400px */
+  /* 1400px 以上の場合は 1400px */
   @media (min-width: 1400px) {
     max-width: 1400px;
   }
