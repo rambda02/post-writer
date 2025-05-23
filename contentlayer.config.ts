@@ -267,8 +267,8 @@ export default makeSource({
       [
         rehypePrettyCode,
         {
-          // シンタックスハイライトのテーマ
-          theme: "github-dark",
+          // コードブロックの背景色を保持しない
+          keepBackground: false,
 
           // 各行 （LineElement） を訪問する度に呼び出されるコールバック関数
           onVisitLine(node: LineElement) {
