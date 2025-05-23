@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next"; // Next.js のコアパッケージ
 import "@/styles/globals.css"; // グローバルスタイルシート
-import { Inter as FontSans } from "next/font/google"; // グローバルフォント
+import { Inter as FontSans, Roboto_Mono as FontMono } from "next/font/google"; // グローバルフォント
 import localFont from "next/font/local"; // ローカルフォント
 import { siteConfig } from "@/config/site"; // サイト設定
 import { cn } from "@/lib/utils"; // ユーティリティ関数ライブラリ
@@ -19,6 +19,12 @@ const fontSans = FontSans({
 const fontHeading = localFont({
   src: "../assets/fonts/CalSans-SemiBold.woff2",
   variable: "--font-heading",
+});
+
+// モノスペースフォントの設定
+const fontMono = FontMono({
+  subsets: ["latin"],
+  variable: "--font-mono",
 });
 
 // ビューポートの設定
@@ -95,7 +101,8 @@ export default function RootLayout({
         className={cn(
           "min-h-screen bg-background font-sans antialiased", // フォントが読み込まれるまでは font-sans が適用される
           fontSans.variable, // フォントの設定
-          fontHeading.variable // ヘッダーのフォントの設定
+          fontHeading.variable, // ヘッダーのフォントの設定
+          fontMono.variable // モノスペースフォントの設定
         )}
       >
         <ThemeProvider
