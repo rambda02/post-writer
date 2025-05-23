@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next"; // Next.js のコアパッケージ
-import "./globals.css"; // グローバルスタイルシート
+import "@/styles/globals.css"; // グローバルスタイルシート
 import { Inter as FontSans } from "next/font/google"; // グローバルフォント
 import localFont from "next/font/local"; // ローカルフォント
 import { siteConfig } from "@/config/site"; // サイト設定
