@@ -105,6 +105,7 @@ export default function RootLayout({
           fontMono.variable // モノスペースフォントの設定
         )}
       >
+        {/* テーマプロバイダー */}
         <ThemeProvider
           attribute="class" // テーマの属性 (class を使用してテーマを適用)
           defaultTheme="system" // デフォルトのテーマ
@@ -115,7 +116,7 @@ export default function RootLayout({
           <Analytics /> {/* アナリティクス */}
           <Toaster /> {/* トースター */}
           <TailwindIndicator /> {/* インジケーター */}
-        </ThemeProvider> {/* テーマプロバイダー */}
+        </ThemeProvider>
       </body>
     </html>
   );
