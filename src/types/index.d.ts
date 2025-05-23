@@ -1,3 +1,4 @@
+// メインナビゲーションアイテム
 export type NavItem = {
   title: string;
   href: string;
@@ -20,6 +21,7 @@ export type SidebarNavItem = {
     }
 );
 
+// サイト設定
 export type SiteConfig = {
   name: string;
   description: string;
@@ -31,6 +33,7 @@ export type SiteConfig = {
   };
 };
 
+// マーケティング設定
 export type MarketingConfig = {
   mainNav: NavItem[];
 };

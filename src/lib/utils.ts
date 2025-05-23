@@ -1,7 +1,7 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { clsx, type ClassValue } from "clsx"; // クラス名を結合するためのライブラリ
+import { twMerge } from "tailwind-merge"; // Tailwind CSSのクラスを結合するためのライブラリ
 
-// クラス名のユーティリティ関数
+// クラスを結合するユーティリティ関数
 export function cn(...inputs: ClassValue[]) {
   // クラス名を結合して、Tailwind CSSのクラスを生成する
   return twMerge(clsx(inputs));
