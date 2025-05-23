@@ -2,6 +2,7 @@ import { Metadata } from "next"; // Next.js のコアパッケージ
 import Link from "next/link"; // Next.js のリンクコンポーネント (リンクを表示する)
 import Image from "next/image"; // Next.js の画像コンポーネント (画像を表示する)
 import { notFound } from "next/navigation"; // Next.js のエラーハンドリングパッケージ (404 エラーを返す)
+import "@/styles/mdx.css"; // MDX のスタイルシート
 import { allAuthors, allPosts } from "contentlayer/generated"; // Contentlayer の型付きデータパッケージ （Markdown ファイルから生成されたデータを型付きで取得する）
 import { absoluteUrl, cn, formatDate } from "@/lib/utils"; // ユーティリティ関数ライブラリ
 import { buttonVariants } from "@/components/ui/button"; // ボタンコンポーネント (ボタンの表示を行う)
