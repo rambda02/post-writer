@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 export default function Login() {
   return (
     <div className="mx-auto px-8 flex flex-col items-center justify-center h-screen w-screen">
+      {/* バックボタン */}
       <Link
         href="/"
         className={cn(
