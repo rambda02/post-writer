@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react"; // React　のコアパッケージ
+import { useState, Suspense } from "react"; // React　のコアパッケージ
 import { useSearchParams } from "next/navigation"; // クエリパラメータを取得するためのパッケージ
 import { signIn } from "next-auth/react"; // NextAuth の認証機能を実装するためのパッケージ　　(OAuth認証、データベース統合、JWTトークン、セッション管理などの認証機能を提供する)
 import { userAuthSchema } from "@/lib/validations/auth"; // バリデーションスキーマ (バリデーションを行うためのスキーマ)
@@ -8,8 +8,8 @@ import { useForm } from "react-hook-form"; // フォーム管理を簡単にす�
 import { z } from "zod"; // バリデーションを行うためのパッケージ
 import { zodResolver } from "@hookform/resolvers/zod"; // バリデーションを行うためのライブラリ (バリデーションを行うためのスキーマを解決する)
 import { cn } from "@/lib/utils"; // ユーティリティ関数ライブラリ
-import { Input } from "./ui/input"; // 入力コンポーネント (入力フォームを表示する)
-import { buttonVariants } from "./ui/button"; // ボタンコンポーネント (ボタンの表示を行う)
+import { Input } from "@/components/ui/input"; // 入力コンポーネント (入力フォームを表示する)
+import { buttonVariants } from "@/components/ui/button"; // ボタンコンポーネント (ボタンの表示を行う)
 import { Icon } from "@/components/Icon"; // アイコンコンポーネント (アイコンを表示する)
 import { Label } from "@/components/ui/label"; // ラベルコンポーネント (ラベルを表示する)
 import { toast } from "sonner"; // トーストメッセージを表示するためのパッケージ (通知を表示する)
@@ -17,10 +17,11 @@ import { toast } from "sonner"; // トーストメッセージを表示するた
 // フォームのデータ型を定義 (バリデーションを行う)
 type FormData = z.infer<typeof userAuthSchema>;
 
-export const UserAuthForm = ({
+// 内部コンポーネントを作成
+function UserAuthFormContent({
   className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) => {
+}: React.HTMLAttributes<HTMLDivElement>) {
   const [isLoading, setIsLoading] = useState<boolean>(false); // ローディング状態を管理する
   const [isGitHubLoading, setIsGitHubLoading] = useState<boolean>(false); // GitHub ローディング状態を管理する
   const [isGoogleLoading, setIsGoogleLoading] = useState<boolean>(false); // Google ローディング状態を管理する
@@ -138,5 +139,14 @@ export const UserAuthForm = ({
         </button>
       </div>
     </div>
+  );
+}
+
+// メインコンポーネント
+export const UserAuthForm = (props: React.HTMLAttributes<HTMLDivElement>) => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <UserAuthFormContent {...props} />
+    </Suspense>
   );
 };
