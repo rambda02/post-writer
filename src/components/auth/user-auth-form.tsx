@@ -79,6 +79,8 @@ function UserAuthFormContent({
             <Label className="sr-only" htmlFor="email">
               Email
             </Label>
+
+            {/* メールアドレスの入力フォーム */}
             <Input
               id="email"
               placeholder="name@example.com"
@@ -90,6 +92,7 @@ function UserAuthFormContent({
               disabled={isLoading || isGitHubLoading || isGoogleLoading}
               {...register("email")}
             />
+
             {/* バリデーションエラーがある場合はエラーメッセージを表示する */}
             {errors?.email && (
               <p className="px-1 text-xs text-destructive">
@@ -97,6 +100,8 @@ function UserAuthFormContent({
               </p>
             )}
           </div>
+
+          {/* メールアドレスの送信ボタン */}
           <button
             className={cn(buttonVariants({ size: "lg" }))}
             disabled={isLoading}
@@ -106,6 +111,8 @@ function UserAuthFormContent({
           </button>
         </div>
       </form>
+
+      {/* 区切り線 */}
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
@@ -116,7 +123,9 @@ function UserAuthFormContent({
           </span>
         </div>
       </div>
+
       <div className="flex flex-col gap-2">
+        {/* GitHubボタン */}
         <button
           className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
           onClick={() => {
@@ -127,6 +136,8 @@ function UserAuthFormContent({
           {isGitHubLoading ? <Icon.spinner /> : <Icon.github />}
           GitHub
         </button>
+
+        {/* Googleボタン */}
         <button
           className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
           onClick={() => {
