@@ -18,5 +18,5 @@ export function formatDate(date: string) {
 
 // 絶対URLを生成する関数
 export function absoluteUrl(path: string) {
-  return `${process.env.NEXTAUTH_URL}${path}`; // サイトのURLとパスを結合して、絶対URLを生成する
+  return `${process.env.NEXT_PUBLIC_APP_URL}${path}`; // サイトのURLとパスを結合して、絶対URLを生成する
 }

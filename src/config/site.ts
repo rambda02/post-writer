@@ -7,9 +7,9 @@ export const siteConfig: SiteConfig = {
   description:
     "An open source application built using the new router, server components and everything new in Next.js 15.",
   // サイトのURL
-  url: process.env.NEXTAUTH_URL || "http://localhost:3000",
+  url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
   // サイトのOGP画像
-  ogImage: `${process.env.NEXTAUTH_URL}/og.jpg`,
+  ogImage: `${process.env.NEXT_PUBLIC_APP_URL}/og.jpg`,
   // リンクの設定
   links: {
     x: "https://x.com/rambda555", // Xのリンク
