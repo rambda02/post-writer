@@ -36,7 +36,7 @@ export const authOptions: NextAuthOptions = {
 
   // コールバックの設定 (認証後の処理)
   callbacks: {
-    // セッション情報の生成 (ブラウザのCookieに保存されるセッション情報を生成)
+    // セッション情報の生成 (ブラウザの Cookie に保存されるセッション情報を生成)
     async session({ token, session }) {
       // トークンが存在する場合は、セッション情報に追加
       if (token) {
@@ -45,15 +45,16 @@ export const authOptions: NextAuthOptions = {
         session.user.email = token.email;
         session.user.image = token.picture;
       }
-      
+
       // セッション情報を返す
       return session;
     },
 
     // JWT トークンの生成
     async jwt({ token, user }) {
-      // ユーザーが存在する場合は、JWT にユーザーの ID を追加
+      // ユーザーが存在する場合
       if (user) {
+        // ユーザーの ID を JWT に追加
         return { ...token, id: user.id };
       }
 
