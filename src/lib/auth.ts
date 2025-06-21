@@ -5,6 +5,19 @@ import { PrismaAdapter } from "@auth/prisma-adapter"; // Prisma のアダプタ�
 import { db } from "./db"; // Prisma クライアント (Prisma を使用してデータベースに接続)
 
 export const authOptions: NextAuthOptions = {
+  // Prisma のアダプターを使用してデータベースに接続
+  adapter: PrismaAdapter(db),
+
+  // セッション管理に JWT を使用
+  session: {
+    strategy: "jwt",
+  },
+
+  // ログインページの設定 (未認証時に保護されたページにアクセスしようとした場合にリダイレクトされるページ)
+  pages: {
+    signIn: "/login",
+  },
+
   // 認証プロバイダーの設定 (認証方法の設定)
   providers: [
     // GitHub 認証プロバイダーの設定
@@ -20,31 +33,32 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       allowDangerousEmailAccountLinking: true, // 同じメールアドレスを持つ異なる認証プロバイダーのログインを許可する設定
     }),
-  ],
-  adapter: PrismaAdapter(db),
-  pages: {
-    signIn: "/login",
-  },
+
+  // コールバックの設定 (認証後の処理)
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        return { ...token, id: user.id };
-      }
-
-      return token;
-    },
-
+    // セッション情報の生成 (ブラウザのCookieに保存されるセッション情報を生成)
     async session({ token, session }) {
+      // トークンが存在する場合は、セッション情報に追加
       if (token) {
         session.user.id = token.id;
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.image = token.picture;
       }
+      
+      // セッション情報を返す
       return session;
     },
-  },
-  session: {
-    strategy: "jwt",
+
+    // JWT トークンの生成
+    async jwt({ token, user }) {
+      // ユーザーが存在する場合は、JWT にユーザーの ID を追加
+      if (user) {
+        return { ...token, id: user.id };
+      }
+
+      // トークンを返す
+      return token;
+    },
   },
 };
