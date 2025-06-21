@@ -1,8 +1,10 @@
 import { NextAuthOptions } from "next-auth"; // NextAuth.js のコアパッケージ
 import Github from "next-auth/providers/github"; // GitHub を使用した認証を提供するパッケージ
 import Google from "next-auth/providers/google"; // Google を使用した認証を提供するパッケージ
+import EmailProvider from "next-auth/providers/email"; // Email を使用した認証を提供するパッケージ
 import { PrismaAdapter } from "@auth/prisma-adapter"; // Prisma のアダプター (Prisma を NextAuth.js と連携させるためのパッケージ)
 import { db } from "./db"; // Prisma クライアント (Prisma を使用してデータベースに接続)
+import { resend } from "./resend"; // Resend のインスタンス (メール送信サービスを提供する)
 
 export const authOptions: NextAuthOptions = {
   // Prisma のアダプターを使用してデータベースに接続
@@ -34,6 +36,40 @@ export const authOptions: NextAuthOptions = {
       allowDangerousEmailAccountLinking: true, // 同じメールアドレスを持つ異なる認証プロバイダーのログインを許可する設定
     }),
 
+    // Email 認証プロバイダーの設定
+    EmailProvider({
+      // メールの送信元を設定
+      from: process.env.SMTP_FROM,
+
+      // メールの送信処理
+      sendVerificationRequest: async ({ identifier, url }) => {
+        try {
+          await resend.emails.send({
+            // メールの送信元を設定
+            from: process.env.SMTP_FROM || "Rambda <onboarding@resend.dev>",
+
+            // メールの送信先を設定 （ユーザーのメールアドレス）
+            to: identifier,
+
+            // メールの件名を設定
+            subject: "Verify your email address",
+
+            // メールの本文を設定
+            html: `
+            <p>Click <a href="${url}">here</a> to verify your email address</p>
+            `,
+          });
+        } catch (error) {
+          // 開発環境の場合はエラーを表示
+          if (process.env.NODE_ENV === "development") {
+            console.error(error);
+          }
+
+          // エラーをスロー
+          throw new Error("Failed to send verification email");
+        }
+      },
+    }),
   ],
 
   // コールバックの設定 (認証後の処理)
