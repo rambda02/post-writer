@@ -34,6 +34,8 @@ export const authOptions: NextAuthOptions = {
       allowDangerousEmailAccountLinking: true, // 同じメールアドレスを持つ異なる認証プロバイダーのログインを許可する設定
     }),
 
+  ],
+
   // コールバックの設定 (認証後の処理)
   callbacks: {
     // セッション情報の生成 (ブラウザの Cookie に保存されるセッション情報を生成)
