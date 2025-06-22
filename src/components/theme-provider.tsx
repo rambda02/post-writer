@@ -1,6 +1,6 @@
 "use client";
 
-// Reactのコアパッケージ
+// React のコアパッケージ
 import { ComponentProps } from "react";
 
 // アプリでダークモードやカラーテーマの切り替えを簡単に実装できるパッケージ

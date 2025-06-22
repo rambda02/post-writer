@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from "react"; // React　のコアパッケージ
 import { useSearchParams } from "next/navigation"; // クエリパラメータを取得するためのパッケージ
-import { signIn } from "next-auth/react"; // NextAuth の認証機能を実装するためのパッケージ　　(OAuth認証、データベース統合、JWTトークン、セッション管理などの認証機能を提供する)
+import { signIn } from "next-auth/react"; // NextAuth の認証機能を実装するためのパッケージ　　(OAuth 認証、データベース統合、JWT トークン、セッション管理などの認証機能を提供する)
 import { userAuthSchema } from "@/lib/validations/auth"; // バリデーションスキーマ (バリデーションを行うためのスキーマ)
 import { useForm } from "react-hook-form"; // フォーム管理を簡単にするためのライブラリ (フォームの状態管理、バリデーション、エラーハンドリングを効率的に行うための一連のフックを提供する)
 import { z } from "zod"; // バリデーションを行うためのパッケージ
@@ -50,7 +50,7 @@ function UserAuthFormContent({
     const signInResult = await signIn("email", {
       email: data.email.toLowerCase(), // メールアドレスを小文字に変換する
       redirect: false, // リダイレクトを無効にする
-      callbackUrl: searchParams?.get("from") || "/dashboard", // リダイレクト先のURLを設定する
+      callbackUrl: searchParams?.get("from") || "/dashboard", // リダイレクト先の URL を設定する
     });
 
     // ローディング状態を無効にする
@@ -60,14 +60,14 @@ function UserAuthFormContent({
     if (!signInResult?.ok) {
       return toast.error("Something went wrong.", {
         description: "Your sign in request failed. Please try again.",
-        duration: 5000, // 5秒間表示（ミリ秒単位）
+        duration: 5000, // 5秒間表示　（ミリ秒単位）
       });
     }
 
     // サインインに成功した場合
     return toast.success("Check your email", {
       description: "We sent you a login link. Be sure to check your spam too.",
-      duration: 5000, // 5秒間表示（ミリ秒単位）
+      duration: 5000, // 5秒間表示　（ミリ秒単位）
     });
   }
 
@@ -125,7 +125,7 @@ function UserAuthFormContent({
       </div>
 
       <div className="flex flex-col gap-2">
-        {/* GitHubボタン */}
+        {/* GitHub ボタン */}
         <button
           className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
           onClick={() => {
@@ -137,7 +137,7 @@ function UserAuthFormContent({
           GitHub
         </button>
 
-        {/* Googleボタン */}
+        {/* Google ボタン */}
         <button
           className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
           onClick={() => {

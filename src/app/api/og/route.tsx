@@ -12,23 +12,23 @@ import { Logo } from "@/components/og/Logo"; // OGロゴコンポーネント (O
 // リクエストが来ると、ユーザーに最も近いエッジロケーションで実行します
 export const runtime = "edge";
 
-// Inter-Regularフォントファイルを読み込む
+// Inter-Regular フォントファイルを読み込む
 const interRegular = fetch(
   // フォントファイルのパスを指定
   new URL("../../../assets/fonts/Inter-Regular.ttf", import.meta.url)
   // レスポンスボディ （フォントデータ） をバイナリデータとして扱える ArrayBuffer 形式に変換
 ).then((res) => res.arrayBuffer());
 
-// CalSans-SemiBoldフォントファイルを読み込む
+// CalSans-SemiBold フォントファイルを読み込む
 const interBold = fetch(
   // フォントファイルのパスを指定
   new URL("../../../assets/fonts/CalSans-SemiBold.ttf", import.meta.url)
-  // レスポンスボディ（フォントデータ）をバイナリデータとして扱えるArrayBuffer形式に変換
+  // レスポンスボディ　（フォントデータ）　をバイナリデータとして扱える ArrayBuffer 形式に変換
 ).then((res) => res.arrayBuffer());
 
 /**
  * Open Graph 画像を生成する API ルート
- * @param req Requestオブジェクト
+ * @param req Request オブジェクト
  * @returns 生成された Open Graph 画像のバイナリデータ
  */
 export async function GET(req: Request) {
@@ -37,7 +37,7 @@ export async function GET(req: Request) {
     const fontRegular = await interRegular;
     const fontBold = await interBold;
 
-    // リクエストのURLを解析する
+    // リクエストの URL を解析する
     const url = new URL(req.url);
 
     // クエリパラメータを JavaScript オブジェクトに変換しバリデーションする
