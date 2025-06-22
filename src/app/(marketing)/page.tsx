@@ -1,6 +1,6 @@
-import { HeroSection } from "@/components/marketing/HeroSection"; // Hero セクションコンポーネント (Hero セクションの表示を行う)
-import { FeaturesSection } from "@/components/marketing/FeaturesSection"; // Features セクションコンポーネント (Features セクションの表示を行う)
-import { OpenSourceSection } from "@/components/marketing/OpenSourceSection"; // Open Source セクションコンポーネント (Open Source セクションの表示を行う)
+import { HeroSection } from "@/components/marketing/hero-section"; // Hero セクションコンポーネント (Hero セクションの表示を行う)
+import { FeaturesSection } from "@/components/marketing/features-section"; // Features セクションコンポーネント (Features セクションの表示を行う)
+import { OpenSourceSection } from "@/components/marketing/open-source-section"; // Open Source セクションコンポーネント (Open Source セクションの表示を行う)
 
 /**
  * GitHub リポジトリのスター数を取得する
