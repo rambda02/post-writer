@@ -19,7 +19,7 @@ export default function BlogPage() {
     });
 
   return (
-    <div className="w-full mx-auto px-8 max-w-4xl py-6 lg:py-10">
+    <div className="container max-w-4xl py-6 lg:py-10">
       {/* 見出し */}
       <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
         <div className="flex-1 space-y-4">

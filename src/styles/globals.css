@@ -142,7 +142,7 @@ h6.ce-header {
   @apply text-base font-semibold;
 }
 
-.container {
+@utility container {
   @apply mx-auto px-8;
 
   /* 1400px 未満の場合は 100% */
