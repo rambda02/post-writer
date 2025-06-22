@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client"; // データベース操作のための ORM パッケージ
 
 declare global {
   // eslint-disable-next-line no-var
@@ -10,7 +10,7 @@ let prisma: PrismaClient; // Prisma クライアント型の変数を宣言
 
 // 本番環境の場合は新しい Prisma クライアントを作成　 
 // 開発環境ではホットリロードで不要なインスタンスが作成されてしまうため、
-// サーバーキャッシュを使用することでメモリの使用を最適化を行う
+// サーバーキャッシュを使用することでメモリの使用を最適化する
 if (process.env.NODE_ENV === "production") {
   // Prisma クライアントを作成
   prisma = new PrismaClient();
