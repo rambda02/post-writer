@@ -1,21 +1,18 @@
 {
   "compilerOptions": {
-    // インポートパスの基準ディレクトリ
+    // パッケージを import する際の基準ディレクトリ
     "baseUrl": ".",
 
-    // 出力するコードの ECMAScript のバージョン
+    // TypeScript コードが最終的にどのバージョンの JavaScript に変換 (コンパイル) されるかを決定する
     "target": "ES2017",
 
-    // コンパイル時に利用する型定義ライブラリ （.d.ts ファイル内の型定義を読み込むために必要）
-    // dom - ブラウザの DOM 操作
-    // dom.iterable - DOM イテレーション用
-    // esnext - 最新の JavaScript 機能
+    // TypeScript コードを JavaScript に変換 (コンパイル) する際に利用する型定義ライブラリを指定する
     "lib": ["dom", "dom.iterable", "esnext"],
 
-    // プロジェクト内の JavaScript ファイルも処理対象に含める （.js ファイルを読み込むために必要）
+    // プロジェクト内の JavaScript ファイルも処理対象に含める (.js ファイルを読み込むために必要)
     "allowJs": true,
 
-    // 外部ライブラリの型チェックをスキップ
+    // 外部ライブラリの型定義ファイル (.d.ts ファイル) 内部の問題をスキップする (コンパイル時間の短縮のため)
     "skipLibCheck": true,
 
     // 厳格な型チェックを有効化
@@ -24,37 +21,31 @@
     // strict - 上記の厳格な型チェックを有効化
     "strict": true,
 
-    // コンパイラ (tsc) が出力したファイルを生成しない (コンパイル後のファイルを生成しない)
-    // ファイルの生成はバンドル時のみ行う
+    // TypeScript コンパイラは型チェックのみを行い、ファイルの生成を行わないようにする
     "noEmit": true,
 
-    // 古い CommonJS 互換性を有効化
-    // 例: import * as React from 'react' を import React from 'react' に変換
+    // CommonJS モジュールを ES Modules 形式 (import x from 'y') でインポートできるようにする設定
+    // 例: import * as React from 'react' → import React from 'react'
     "esModuleInterop": true,
 
-    // TypeScript の出力モジュール形式 (バンドラーに渡すコードの形式)
-    // esnext = 最新の ECMAScript Module 形式 （import/export 構文）
-    // 例: import { Button } from './components'; → import { Button } from './components';
+    // TypeScript コードをコンパイルした結果として生成される JavaScript ファイルのモジュール形式を指定
+    // esnext = 最新の ES Modules 形式 (import/export 構文)
     "module": "esnext",
 
-    // モジュール解決の方法
+    // モジュール解決の方法を指定
     // bundler = バンドルツールのモジュール解決方式
     "moduleResolution": "bundler",
 
-    // JSON ファイルをモジュールとして解決
-    // JSON ファイルを直接インポートできるようにする設定
+    // .json ファイルを直接 import できるようにする設定
     "resolveJsonModule": true,
 
-    // 独立したモジュールを生成を有効化
-    // モジュールを独立して生成することで、モジュールの衝突を防ぐ
-    // ファイルを独立して処理できるため、並列処理が可能になり、大規模プロジェクトでのビルド速度が向上
-    // Next.js、Vite などの高速変換ツールと互換性を持たせるための設定
+    // TypeScript の各ファイルを独立したモジュールとして扱うための設定
+    // ファイルを独立して処理できるため、並列処理が可能になり、ビルド速度が向上
     "isolatedModules": true,
 
-    // JSX の処理方式
-    // <div>Hello</div>　のような構文をどう扱うか決める設定
-    // preserve = 元の JSX 構文をそのまま保持
-    // 例:　const element = <div>Hello</div>;
+    // JSX の処理方式を指定
+    // preserve = TypeScript コンパイラは元の JSX 構文をそのまま保持する
+    // Next.js では、JSX の処理方式を preserve にすることで、Next.js の独自の JSX 変換機能を利用できる
     "jsx": "preserve",
 
     // TypeScript のコンパイル速度を向上させるための設定
