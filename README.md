@@ -15,7 +15,5 @@ npm run dev
 
 [localhost:3000](http://localhost:3000)
 
-## API
-
 ## 参考
 [Next.js × shadcn/ui × Supabaseで本格的なWebアプリ開発を学ぶフルスタック講座](https://www.udemy.com/course/nextjs-shadcn-fullstack-webapp-dev/learn/lecture/43278474?start=0#overview)
