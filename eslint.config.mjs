@@ -1,36 +1,22 @@
-// ファイルのパスを取得するためのモジュール
-import { dirname } from "path";
-
-// URL オブジェクトを操作するためのモジュール
-import { fileURLToPath } from "url";
-
-// ESLint 設定を互換モードで読み込むためのモジュール
-import { FlatCompat } from "@eslint/eslintrc";
+import { dirname } from "path"; // ファイルパスを操作するためのユーティリティ関数を提供する
+import { fileURLToPath } from "url"; // UR の解析や操作に関するユーティリティを提供する
+import { FlatCompat } from "@eslint/eslintrc"; // 古い ESLint 設定を新しいフラット設定に変換するためのモジュール
 
 // 現在のファイルのパスを取得する
-// import.meta.url - 現在のファイルの URL を取得するためのプロパティ (例: file:///Users/user/Desktop/next-blog/eslint.config.mjs)
-// fileURLToPath - URL をファイルパスに変換する関数 (例：　/Users/user/Desktop/next-blog/eslint.config.mjs)
 const __filename = fileURLToPath(import.meta.url);
 
 // 現在のファイルのディレクトリ名を取得する
-// dirname - ファイルのディレクトリ名を取得するための関数 (例: /Users/user/Desktop/next-blog)
 const __dirname = dirname(__filename);
 
-// ESLint の設定を互換性のある方法で管理するためのクラスをインスタンス化する
-// FlatCompat - ESLint の設定を互換性のある方法で管理するためのクラス
-// ESLint v9 で導入された新しいフラット設定形式と、ESLint v8 以前で使用されていた従来の設定形式 （.eslintrc など） との間の橋渡しをする重要なクラス
+// 古い ESLint 設定を新しいフラット設定に変換するためのインスタンスを作成する
 const compat = new FlatCompat({
-  // 設定ファイルの基準となるディレクトリを現在のファイルのディレクトリに設定
-  // 依存関係の解決: どのディレクトリの node_modules から検索を開始すべきかを知るために基準ディレクトリが必要
-  // 拡張設定のパス解決: extends で指定された設定 （"next/core-web-vitals" など） の正確な場所を特定するために、起点となるディレクトリが必要
-  // 一貫性の確保: プロジェクト内のどこから ESLint 設定が読み込まれても、同じ基準点を持つことで一貫した動作を保証
-  baseDirectory: __dirname,
+  baseDirectory: __dirname, // ライブラリや設定ファイルを探すための基準ディレクトリ
 });
 
 // 拡張設定を読み込む
 const eslintConfig = [
-  // next/core-web-vitals - Next.js のコアバッドプラクティスをチェックするためのルール
-  // next/typescript - TypeScript のコードをチェックするためのルール
+  // next/core-web-vitals - パフォーマンスに関する問題 (ページの読み込み速度、インタラクティブ性) を検出するルールが含まれている
+  // next/typescript - TypeScript コードに特化したルールで、型の不一致や潜在的なエラーを検出する
   ...compat.extends("next/core-web-vitals", "next/typescript"),
 ];
 
