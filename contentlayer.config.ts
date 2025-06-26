@@ -10,7 +10,7 @@ import rehypePrettyCode, {
   type CharsElement,
 } from "rehype-pretty-code";
 
-// ヘッダーのIDを自動生成する rehype プラグイン
+// ヘッダーの ID を自動生成する rehype プラグイン
 import rehypeSlug from "rehype-slug";
 
 // マークダウンの GFM（GitHub Flavored Markdown） をサポートする remark プラグイン
@@ -27,7 +27,7 @@ type DocumentWithRaw = {
 
 /**
  * 自動計算されるフィールドを返却する関数
- * @returns 自動計算されるフィールド （slug, slugAsParams） を含むオブジェクト
+ * @returns 自動計算されるフィールド (slug, slugAsParams) を含むオブジェクト
  */
 const createComputedFields = () => ({
   // ファイルパスを生成するフィールド
@@ -270,9 +270,9 @@ export default makeSource({
           // コードブロックの背景色を保持しない
           keepBackground: false,
 
-          // 各行 （LineElement） を訪問する度に呼び出されるコールバック関数
+          // 各行　 (LineElement) を訪問する度に呼び出されるコールバック関数
           onVisitLine(node: LineElement) {
-            // display: grid; プロパティが使用されている環境では、空の行 （内容がない行） が視覚的に潰れてしまう問題がある
+            // display: grid; プロパティが使用されている環境では、空の行 (内容がない行) が視覚的に潰れてしまう問題がある
             // ユーザーが空の行をコピー＆ペーストしようとしても、内容がないため操作が難しくなる
 
             // 行に子要素がない場合
