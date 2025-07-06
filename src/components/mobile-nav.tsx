@@ -21,6 +21,7 @@ export const MobileNav = ({ items, children, onNavigate }: MobileNavProps) => {
       )}
     >
       <div className="relative z-20 grid gap-6 rounded-md bg-popover p-4 text-popover-foreground shadow-md">
+        {/* ロゴ */}
         <Link
           href="/"
           className="flex items-center space-x-2"
@@ -29,6 +30,8 @@ export const MobileNav = ({ items, children, onNavigate }: MobileNavProps) => {
           <Icon.logo />
           <span className="font-bold">{siteConfig.name}</span>
         </Link>
+
+        {/* モバイルナビゲーション */}
         <nav className="grid grid-flow-row auto-rows-max text-sm">
           {items.map((item, index) => (
             <Link
