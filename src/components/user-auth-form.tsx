@@ -1,18 +1,18 @@
 "use client";
 
-import { useState, Suspense } from "react"; // React　のコアパッケージ
-import { useSearchParams } from "next/navigation"; // クエリパラメータを取得するためのパッケージ
-import { signIn } from "next-auth/react"; // NextAuth の認証機能を実装するためのパッケージ　　(OAuth 認証、データベース統合、JWT トークン、セッション管理などの認証機能を提供する)
-import { userAuthSchema } from "@/lib/validations/auth"; // バリデーションスキーマ (バリデーションを行うためのスキーマ)
-import { useForm } from "react-hook-form"; // フォーム管理を簡単にするためのライブラリ (フォームの状態管理、バリデーション、エラーハンドリングを効率的に行うための一連のフックを提供する)
-import { z } from "zod"; // バリデーションを行うためのパッケージ
-import { zodResolver } from "@hookform/resolvers/zod"; // バリデーションを行うためのライブラリ (バリデーションを行うためのスキーマを解決する)
-import { cn } from "@/lib/utils"; // ユーティリティ関数ライブラリ
-import { Input } from "@/components/ui/input"; // 入力コンポーネント (入力フォームを表示する)
-import { buttonVariants } from "@/components/ui/button"; // ボタンコンポーネント (ボタンの表示を行う)
-import { Icons } from "@/components/Icons"; // アイコンコンポーネント (アイコンを表示する)
-import { Label } from "@/components/ui/label"; // ラベルコンポーネント (ラベルを表示する)
-import { toast } from "sonner"; // トーストメッセージを表示するためのパッケージ (通知を表示する)
+import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { userAuthSchema } from "@/lib/validations/auth";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { buttonVariants } from "@/components/ui/button";
+import { Icons } from "@/components/Icons";
+import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 
 // フォームのデータ型を定義 (バリデーションを行う)
 type FormData = z.infer<typeof userAuthSchema>;
