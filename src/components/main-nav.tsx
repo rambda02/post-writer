@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 import { NavItem } from "@/types";
-import { MobileNav } from "./mobile-nav";
+import { MobileNav } from "@/components/mobile-nav";
 import { siteConfig } from "@/config/site";
 import { Icon } from "@/components/Icon";
 import { cn } from "@/lib/utils";
@@ -20,12 +20,15 @@ export const MainNav = ({ items, children }: MainNavProps) => {
 
   return (
     <div className="flex items-center md:gap-10">
+      {/* ロゴ */}
       <Link href="/" className="hidden items-center space-x-2 md:flex">
         <Icon.logo />
         <span className="hidden font-bold sm:inline-block">
           {siteConfig.name}
         </span>
       </Link>
+
+      {/* デスクトップナビゲーション */}
       {items?.length ? (
         <nav className="md:flex gap-6 hidden">
           {items?.map((item, index) => (
@@ -45,6 +48,8 @@ export const MainNav = ({ items, children }: MainNavProps) => {
           ))}
         </nav>
       ) : null}
+
+      {/* モバイルナビゲーション */}
       <button
         className="flex items-center space-x-2 md:hidden"
         onClick={() => setShowMobileMenu(!showMobileMenu)}
