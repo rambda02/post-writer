@@ -1,9 +1,9 @@
-import { Metadata } from "next"; // Next.js のコアパッケージ
-import Link from "next/link"; // Next.js のリンクコンポーネント (リンクを表示する)
-import { cn } from "@/lib/utils"; // ユーティリティ関数ライブラリ
-import { buttonVariants } from "@/components/ui/button"; // ボタンコンポーネント (ボタンの表示を行う)
-import { UserAuthForm } from "@/components/auth/user-auth-form"; // ユーザー認証フォームコンポーネント (ユーザー認証フォームを表示する)
-import { Icons } from "@/components/Icons"; // アイコンコンポーネント (アイコンを表示する)
+import { Metadata } from "next";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import { UserAuthForm } from "@/components/user-auth-form";
+import { Icons } from "@/components/Icons";
 
 export const metadata: Metadata = {
   title: "Login",
