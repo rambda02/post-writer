@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
-import { Icon } from "@/components/Icons";
+import { Icons } from "@/components/Icons";
 
 export const OpenSourceSection = ({ stars }: { stars: string | null }) => {
   return (
@@ -35,7 +35,7 @@ export const OpenSourceSection = ({ stars }: { stars: string | null }) => {
             className="flex"
           >
             <div className="flex h-10 w-10 items-center justify-center space-x-2 rounded-md border border-muted bg-muted">
-              <Icon.github className={"h-5 w-5 text-foreground"} />
+              <Icons.github className={"h-5 w-5 text-foreground"} />
             </div>
             <div className="flex items-center">
               <div className="h-4 w-4 border-y-8 border-l-0 border-r-8 border-solid border-muted border-y-transparent"></div>

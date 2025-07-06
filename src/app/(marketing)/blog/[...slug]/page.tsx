@@ -8,7 +8,7 @@ import { absoluteUrl, cn, formatDate } from "@/lib/utils"; // ユーティリテ
 import { buttonVariants } from "@/components/ui/button"; // ボタンコンポーネント (ボタンの表示を行う)
 import { Mdx } from "@/components/mdx-components"; // MDX コンポーネント (Markdown を HTML に変換する)
 import { siteConfig } from "@/config/site"; // サイトの設定
-import { Icon } from "@/components/Icons"; // アイコンコンポーネント (アイコンの表示を行う)
+import { Icons } from "@/components/Icons"; // アイコンコンポーネント (アイコンの表示を行う)
 
 // ダイナミックルーティングで受け取るパラメーターの型
 interface PostPageProps {
@@ -137,7 +137,7 @@ export default async function PostPage(params: PostPageProps) {
           "absolute left-[-200px] top-14 hidden xl:inline-flex"
         )}
       >
-        <Icon.chevronLeft />
+        <Icons.chevronLeft />
         See all posts
       </Link>
 
@@ -211,7 +211,7 @@ export default async function PostPage(params: PostPageProps) {
           href="/blog"
           className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}
         >
-          <Icon.chevronLeft className="mr-2 h-4 w-4" />
+          <Icons.chevronLeft className="mr-2 h-4 w-4" />
           See all posts
         </Link>
       </div>

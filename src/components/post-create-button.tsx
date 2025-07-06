@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "./ui/button";
-import { Icon } from "@/components/Icons";
+import { Icons } from "@/components/Icons";
 import { VariantProps } from "class-variance-authority";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -56,7 +56,7 @@ export const PostCreateButton = ({
       disabled={isLoading}
       {...props}
     >
-      {isLoading ? <Icon.spinner /> : <Icon.add />}
+      {isLoading ? <Icons.spinner /> : <Icons.add />}
       新しい投稿
     </button>
   );

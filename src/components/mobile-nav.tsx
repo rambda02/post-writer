@@ -2,7 +2,7 @@ import Link from "next/link";
 import { NavItem } from "@/types";
 import { siteConfig } from "@/config/site";
 import { useLockBodyScroll } from "@uidotdev/usehooks";
-import { Icon } from "@/components/Icons";
+import { Icons } from "@/components/Icons";
 import { cn } from "@/lib/utils";
 
 interface MobileNavProps {
@@ -27,7 +27,7 @@ export const MobileNav = ({ items, children, onNavigate }: MobileNavProps) => {
           className="flex items-center space-x-2"
           onClick={onNavigate}
         >
-          <Icon.logo />
+          <Icons.logo />
           <span className="font-bold">{siteConfig.name}</span>
         </Link>
 

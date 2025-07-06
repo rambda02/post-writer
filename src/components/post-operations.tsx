@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { Icon } from "@/components/Icons";
+import { Icons } from "@/components/Icons";
 import Link from "next/link";
 
 import {
@@ -53,7 +53,7 @@ export const PostOperations = ({ post }: PostOperationsProps) => {
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Icon.ellipsis className="h-4 w-4" />
+          <Icons.ellipsis className="h-4 w-4" />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem>
@@ -94,7 +94,7 @@ export const PostOperations = ({ post }: PostOperationsProps) => {
               }}
               className="bg-red-600 hover:bg-red-700 focus:ring-red-700"
             >
-              {isDeleteLoading ? <Icon.spinner /> : <Icon.trash />}
+              {isDeleteLoading ? <Icons.spinner /> : <Icons.trash />}
               削除
             </AlertDialogAction>
           </AlertDialogFooter>

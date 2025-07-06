@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod"; // バリデーション�
 import { cn } from "@/lib/utils"; // ユーティリティ関数ライブラリ
 import { Input } from "@/components/ui/input"; // 入力コンポーネント (入力フォームを表示する)
 import { buttonVariants } from "@/components/ui/button"; // ボタンコンポーネント (ボタンの表示を行う)
-import { Icon } from "@/components/Icons"; // アイコンコンポーネント (アイコンを表示する)
+import { Icons } from "@/components/Icons"; // アイコンコンポーネント (アイコンを表示する)
 import { Label } from "@/components/ui/label"; // ラベルコンポーネント (ラベルを表示する)
 import { toast } from "sonner"; // トーストメッセージを表示するためのパッケージ (通知を表示する)
 
@@ -106,7 +106,7 @@ function UserAuthFormContent({
             className={cn(buttonVariants({ size: "lg" }))}
             disabled={isLoading}
           >
-            {isLoading && <Icon.spinner />}
+            {isLoading && <Icons.spinner />}
             Sign In with Email
           </button>
         </div>
@@ -133,7 +133,7 @@ function UserAuthFormContent({
             signIn("github");
           }}
         >
-          {isGitHubLoading ? <Icon.spinner /> : <Icon.github />}
+          {isGitHubLoading ? <Icons.spinner /> : <Icons.github />}
           GitHub
         </button>
 
@@ -145,7 +145,7 @@ function UserAuthFormContent({
             signIn("google");
           }}
         >
-          {isGoogleLoading ? <Icon.spinner /> : <Icon.google />}
+          {isGoogleLoading ? <Icons.spinner /> : <Icons.google />}
           Google
         </button>
       </div>

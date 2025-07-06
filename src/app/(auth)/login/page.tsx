@@ -3,7 +3,7 @@ import Link from "next/link"; // Next.js のリンクコンポーネント (リ�
 import { cn } from "@/lib/utils"; // ユーティリティ関数ライブラリ
 import { buttonVariants } from "@/components/ui/button"; // ボタンコンポーネント (ボタンの表示を行う)
 import { UserAuthForm } from "@/components/auth/user-auth-form"; // ユーザー認証フォームコンポーネント (ユーザー認証フォームを表示する)
-import { Icon } from "@/components/Icons"; // アイコンコンポーネント (アイコンを表示する)
+import { Icons } from "@/components/Icons"; // アイコンコンポーネント (アイコンを表示する)
 
 export const metadata: Metadata = {
   title: "Login",
@@ -21,12 +21,12 @@ export default function Login() {
           "absolute left-4 top-4 md:left-8 md:top-8"
         )}
       >
-        <Icon.chevronLeft />
+        <Icons.chevronLeft />
         Back
       </Link>
       <div className="mx-auto w-full sm:w-[350px] flex flex-col justify-center space-y-6">
         <div className="flex flex-col text-center space-y-2">
-          <Icon.logo className="mx-auto h-6 w-6" />
+          <Icons.logo className="mx-auto h-6 w-6" />
           <h1 className="text-2xl font-semibold tracking-tight">
             Welcome Back
           </h1>

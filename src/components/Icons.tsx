@@ -22,7 +22,7 @@ import {
   X,
 } from "lucide-react";
 
-export const Icon = {
+export const Icons = {
   logo: Command,
   close: X,
   chevronLeft: ChevronLeft,

@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { postPatchSchema, postPatchSchemaType } from "@/lib/validations/post";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { Icon } from "@/components/Icons";
+import { Icons } from "@/components/Icons";
 
 interface EditorProps {
   post: Pick<Post, "id" | "title" | "content" | "published">;
@@ -125,7 +125,7 @@ export const Editor = ({ post }: EditorProps) => {
             <p className="text-sm text-muted-foreground">公開</p>
           </div>
           <button className={cn(buttonVariants())} type="submit">
-            {isSaving && <Icon.spinner />}
+            {isSaving && <Icons.spinner />}
             <span>保存</span>
           </button>
         </div>
