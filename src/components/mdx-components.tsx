@@ -1,8 +1,8 @@
-import Image from "next/image"; // Next.js の画像コンポーネント (画像を表示する)
-import { cn } from "@/lib/utils"; // ユーティリティ関数ライブラリ
-import { useMDXComponent } from "next-contentlayer2/hooks"; // マークダウンや MDX で書かれたコンテンツを React コンポーネントとして扱うための機能を提供するパッケージ
-import { Callout } from "@/components/callout"; // コールアウトコンポーネント (マークダウンのコールアウトを表示するためのコンポーネント)
-import { MdxCard } from "@/components/mdx-card"; // カードコンポーネント (マークダウンのカードを表示するためのコンポーネント)
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { useMDXComponent } from "next-contentlayer2/hooks";
+import { Callout } from "@/components/callout";
+import { MdxCard } from "@/components/mdx-card";
 
 const components = {
   // リンク

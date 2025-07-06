@@ -1,10 +1,10 @@
-import { NextAuthOptions } from "next-auth"; // NextAuth.js のコアパッケージ
-import Github from "next-auth/providers/github"; // GitHub を使用した認証を提供するパッケージ
-import Google from "next-auth/providers/google"; // Google を使用した認証を提供するパッケージ
-import EmailProvider from "next-auth/providers/email"; // Email を使用した認証を提供するパッケージ
-import { PrismaAdapter } from "@auth/prisma-adapter"; // Prisma のアダプター (Prisma を NextAuth.js と連携させるためのパッケージ)
-import { db } from "./db"; // Prisma クライアント (Prisma を使用してデータベースに接続)
-import { resend } from "./resend"; // Resend のインスタンス (メール送信サービスを提供する)
+import { NextAuthOptions } from "next-auth";
+import Github from "next-auth/providers/github";
+import Google from "next-auth/providers/google";
+import EmailProvider from "next-auth/providers/email";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { db } from "@/lib/db";
+import { resend } from "@/lib/resend";
 
 export const authOptions: NextAuthOptions = {
   // Prisma のアダプターを使用してデータベースに接続
