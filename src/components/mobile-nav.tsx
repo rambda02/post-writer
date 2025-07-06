@@ -2,7 +2,7 @@ import Link from "next/link";
 import { NavItem } from "@/types";
 import { siteConfig } from "@/config/site";
 import { useLockBodyScroll } from "@uidotdev/usehooks";
-import { Icon } from "@/components/Icon";
+import { Icon } from "@/components/Icons";
 import { cn } from "@/lib/utils";
 
 interface MobileNavProps {

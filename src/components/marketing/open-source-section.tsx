@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
-import { Icon } from "@/components/Icon";
+import { Icon } from "@/components/Icons";
 
 export const OpenSourceSection = ({ stars }: { stars: string | null }) => {
   return (

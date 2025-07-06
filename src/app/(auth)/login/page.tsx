@@ -3,7 +3,7 @@ import Link from "next/link"; // Next.js のリンクコンポーネント (リ�
 import { cn } from "@/lib/utils"; // ユーティリティ関数ライブラリ
 import { buttonVariants } from "@/components/ui/button"; // ボタンコンポーネント (ボタンの表示を行う)
 import { UserAuthForm } from "@/components/auth/user-auth-form"; // ユーザー認証フォームコンポーネント (ユーザー認証フォームを表示する)
-import { Icon } from "@/components/Icon"; // アイコンコンポーネント (アイコンを表示する)
+import { Icon } from "@/components/Icons"; // アイコンコンポーネント (アイコンを表示する)
 
 export const metadata: Metadata = {
   title: "Login",

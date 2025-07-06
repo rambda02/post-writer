@@ -1,4 +1,4 @@
-import { Icon } from "@/components/Icon"; // アイコン
+import { Icon } from "@/components/Icons"; // アイコン
 
 export const featuresCardData = [
   {

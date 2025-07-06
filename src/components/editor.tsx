@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { postPatchSchema, postPatchSchemaType } from "@/lib/validations/post";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { Icon } from "@/components/Icon";
+import { Icon } from "@/components/Icons";
 
 interface EditorProps {
   post: Pick<Post, "id" | "title" | "content" | "published">;
