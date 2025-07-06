@@ -1,8 +1,8 @@
 import { ImageResponse } from "@vercel/og"; // Vercel の Open Graph 画像生成ライブラリ (HTML を生成して、それを画像に変換する)
-import { ogImageSchema } from "@/lib/validations/og"; // バリデーションスキーマ (バリデーションを行うためのスキーマ)
-import { siteConfig } from "@/config/site"; // サイトの設定
-import { Icon } from "@/components/og/Icon"; // OGアイコンコンポーネント (OGアイコンの表示を行う)
-import { Logo } from "@/components/og/Logo"; // OGロゴコンポーネント (OGロゴの表示を行う)
+import { ogImageSchema } from "@/lib/validations/og";
+import { siteConfig } from "@/config/site";
+import { Icons } from "@/components/og/Icons";
+import { Logos } from "@/components/og/Logos";
 
 // Vercel の Edge ランタイム上で実行されることを指定
 // この API ルートは通常の Node.js サーバーではなく、 Vercel のエッジランタイム上で実行される
@@ -70,7 +70,7 @@ export async function GET(req: Request) {
           }}
         >
           {/* Next.js ロゴ */}
-          <Logo.nextjs paint={paint} />
+          <Logos.nextjs paint={paint} />
 
           {/* ヘッディング */}
           <div tw="flex flex-col flex-1 py-10">
@@ -107,7 +107,7 @@ export async function GET(req: Request) {
               tw="flex items-center text-xl"
               style={{ fontFamily: "Inter", fontWeight: "normal" }}
             >
-              <Icon.github paint={paint} />
+              <Icons.github paint={paint} />
               <div tw="flex ml-2">
                 {new URL(siteConfig.links.github).host +
                   new URL(siteConfig.links.github).pathname}

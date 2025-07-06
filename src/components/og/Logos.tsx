@@ -1,4 +1,4 @@
-export const Logo = {
+export const Logos = {
   nextjs: ({ className, paint }: { className?: string; paint: string }) => (
     <svg
       width="212"

@@ -1,4 +1,4 @@
-export const Icon = {
+export const Icons = {
   github: ({ className, paint }: { className?: string; paint: string }) => (
     <svg
       width="32"
