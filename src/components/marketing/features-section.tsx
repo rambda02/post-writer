@@ -1,4 +1,4 @@
-import { featuresCardData } from "@/data/features"; // Features データ
+import { featuresCardData } from "@/data/features"
 
 export const FeaturesSection = () => {
   return (

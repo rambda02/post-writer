@@ -1,7 +1,7 @@
-import Link from "next/link"; // リング
-import { cn } from "@/lib/utils"; // ユーティリティ
-import { buttonVariants } from "@/components/ui/button"; // ボタン
-import { siteConfig } from "@/config/site"; // サイト設定
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import { siteConfig } from "@/config/site";
 
 export const HeroSection = () => {
   return (
