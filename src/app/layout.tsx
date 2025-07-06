@@ -1,13 +1,13 @@
-import type { Metadata, Viewport } from "next"; // Next.js のコアパッケージ
-import "@/styles/globals.css"; // グローバルスタイルシート
-import { Inter as FontSans, Roboto_Mono as FontMono } from "next/font/google"; // グローバルフォント
-import localFont from "next/font/local"; // ローカルフォント
-import { siteConfig } from "@/config/site"; // サイト設定
-import { cn } from "@/lib/utils"; // ユーティリティ関数ライブラリ
-import { Toaster } from "@/components/ui/sonner"; // トースターコンポーネント (トースターの表示を行う)
-import { Analytics } from "@/components/analytics"; // アナリティクスコンポーネント (Vercel Analytics の設定を有効化にする)
-import { TailwindIndicator } from "@/components/tailwind-indicator"; // インジケーターコンポーネント (Tailwind CSS のインジケーターの表示を行う)
-import { ThemeProvider } from "@/components/theme-provider"; // テーマプロバイダーコンポーネント (ライトモード・ダークモードの切り替えを制御する)
+import type { Metadata, Viewport } from "next";
+import "@/styles/globals.css";
+import { Inter as FontSans, Roboto_Mono as FontMono } from "next/font/google";
+import localFont from "next/font/local";
+import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from "@/components/analytics";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
+import { ThemeProvider } from "@/components/theme-provider";
 
 // フォントの設定
 const fontSans = FontSans({
@@ -32,8 +32,8 @@ export const viewport: Viewport = {
   // テーマカラーの設定　（デフォルトはライトモード）
   // モバイルブラウザのステータスバーの色、デスクトップブラウザのアドレスバーの色を設定
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" }, // ライトモードのテーマカラー
-    { media: "(prefers-color-scheme: dark)", color: "black" }, // ダークモードのテーマカラー
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
 };
 
@@ -41,8 +41,8 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   // タイトルの設定
   title: {
-    default: siteConfig.name, // デフォルトのタイトル
-    template: `%s | ${siteConfig.name}`, // テンプレートのタイトル
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
   // 説明の設定
   description: siteConfig.description,
@@ -65,29 +65,30 @@ export const metadata: Metadata = {
   creator: "@rambda",
   // Open Graph の設定 (SEO 対策、 SNS シェアのための設定)
   openGraph: {
-    type: "website", // ウェブサイトの設定
-    locale: "ja", // 言語の設定
-    siteName: siteConfig.name, // サイトの名前
-    url: siteConfig.url, // サイトの URL
-    title: siteConfig.name, // タイトル
-    description: siteConfig.description, // 説明
-    images: siteConfig.ogImage, // 画像
+    type: "website",
+    locale: "ja",
+    siteName: siteConfig.name,
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: siteConfig.ogImage,
   },
   // Twitter の設定 (SEO 対策、 SNS シェアのための設定)
   twitter: {
-    card: "summary_large_image", // カードの設定
-    title: siteConfig.name, // タイトル
-    description: siteConfig.description, // 説明
-    images: siteConfig.ogImage, // 画像
-    creator: "@rambda", // 作成者
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: siteConfig.ogImage,
+    creator: "@rambda",
   },
   // アイコンの設定
   icons: {
-    icon: "/favicon.ico", // アイコンの設定
-    // shortcut: "/favicon.ico", // ショートカットアイコンの設定
-    // apple: "/favicon.ico", // iOS デバイスのアイコンの設定
+    icon: "/favicon.ico",
+    // shortcut: "/favicon.ico",
+    // apple: "/favicon.ico",
   },
-  manifest: `${siteConfig.url}/site.webmanifest`, // ウェブアプリケーションの設定を定義
+  // ウェブアプリケーションの設定を定義
+  manifest: `${siteConfig.url}/site.webmanifest`,
 };
 
 export default function RootLayout({
