@@ -2,7 +2,7 @@
 
 <img width="1440" alt="スクリーンショット 2025-05-16 20 59 06" src="https://github.com/user-attachments/assets/c88bcbf5-daae-448f-8c97-f233e3314fa2" />
 
-[デモサイト](https://post-writer-amber.vercel.app)
+[デモサイト](https://post-writer-mauve.vercel.app/)
 
 ## 起動方法
 
