@@ -6,6 +6,38 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "@/lib/db";
 import { resend } from "@/lib/resend";
 
+// テスト用メールアドレスかどうかを判定する関数
+function isTestEmail(email: string): boolean {
+  // dev + 数字@localhost.comのパターンのみをテスト用と判定
+  const testPattern = /^(dev\d+)@(localhost)\.com$/i;
+  return testPattern.test(email);
+}
+
+// Mailpitを使用してメールを送信する関数
+async function sendViaMailpit(options: {
+  from: string;
+  to: string;
+  subject: string;
+  html: string;
+}) {
+  const nodemailer = await import("nodemailer");
+  const transport = nodemailer.createTransport({
+    host: process.env.MAILPIT_HOST || "localhost",
+    port: parseInt(process.env.MAILPIT_SMTP_PORT || "1025"),
+    secure: false,
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+
+  return transport.sendMail({
+    from: options.from,
+    to: options.to,
+    subject: options.subject,
+    html: options.html,
+  });
+}
+
 export const authOptions: NextAuthOptions = {
   // Prisma のアダプターを使用してデータベースに接続
   adapter: PrismaAdapter(db),
@@ -44,25 +76,39 @@ export const authOptions: NextAuthOptions = {
       // メールの送信処理
       sendVerificationRequest: async ({ identifier, url }) => {
         try {
+          const fromEmail =
+            process.env.SMTP_FROM || "Rambda <noreply@example.com>";
+
+          // テスト用メールアドレスかどうかを判定
+          const isTestMail = isTestEmail(identifier);
+
+          // 開発環境 + テストメールアドレス + Mailpit有効の場合はMailpitを使用
+          if (
+            process.env.NODE_ENV === "development" &&
+            isTestMail &&
+            process.env.MAILPIT_ENABLED !== "false"
+          ) {
+            // Mailpitを使用してメールを送信
+            await sendViaMailpit({
+              from: fromEmail,
+              to: identifier,
+              subject: "Verify your email address",
+              html: `<p>Click <a href="${url}">here</a> to verify your email address</p>`,
+            });
+
+            return;
+          }
+
           await resend.emails.send({
-            // メールの送信元を設定
-            from: process.env.SMTP_FROM || "Rambda <onboarding@resend.dev>",
-
-            // メールの送信先を設定 （ユーザーのメールアドレス）
+            from: fromEmail,
             to: identifier,
-
-            // メールの件名を設定
             subject: "Verify your email address",
-
-            // メールの本文を設定
-            html: `
-            <p>Click <a href="${url}">here</a> to verify your email address</p>
-            `,
+            html: `<p>Click <a href="${url}">here</a> to verify your email address</p>`,
           });
         } catch (error) {
           // 開発環境の場合はエラーを表示
           if (process.env.NODE_ENV === "development") {
-            console.error(error);
+            console.error("メール送信エラー:", error);
           }
 
           // エラーをスロー
