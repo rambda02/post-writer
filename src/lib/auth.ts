@@ -1,96 +1,61 @@
-import { NextAuthOptions } from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import EmailProvider from "next-auth/providers/email";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
-import EmailProvider from "next-auth/providers/email";
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import type { NextAuthOptions, Session, User } from "next-auth";
+import type { JWT } from "next-auth/jwt";
+
 import { db } from "@/lib/db";
+import { isTestEmail, sendTestEmail } from "@/lib/mail";
 import { resend } from "@/lib/resend";
 
-// テスト用メールアドレスかどうかを判定する関数
-function isTestEmail(email: string): boolean {
-  // dev + 数字@localhost.comのパターンのみをテスト用と判定
-  const testPattern = /^(dev\d+)@(localhost)\.com$/i;
-  return testPattern.test(email);
-}
+const DEFAULT_EMAIL_FROM = "Post Writer <noreply@example.com>"; // メール送信元のデフォルト値
 
-// Mailpitを使用してメールを送信する関数
-async function sendViaMailpit(options: {
-  from: string;
-  to: string;
-  subject: string;
-  html: string;
-}) {
-  const nodemailer = await import("nodemailer");
-  const transport = nodemailer.createTransport({
-    host: process.env.MAILPIT_HOST || "localhost",
-    port: parseInt(process.env.MAILPIT_SMTP_PORT || "1025"),
-    secure: false,
-    tls: {
-      rejectUnauthorized: false,
-    },
-  });
+// メール送信元
+const emailFrom = process.env.SMTP_FROM || DEFAULT_EMAIL_FROM;
 
-  return transport.sendMail({
-    from: options.from,
-    to: options.to,
-    subject: options.subject,
-    html: options.html,
-  });
-}
-
+/**
+ * NextAuth の設定オプション
+ *
+ * @type {NextAuthOptions} NextAuth の設定オプションオブジェクト
+ */
 export const authOptions: NextAuthOptions = {
-  // Prisma のアダプターを使用してデータベースに接続
-  adapter: PrismaAdapter(db),
+  adapter: PrismaAdapter(db), // Prisma のアダプターを使用してデータベースに接続
+  session: { strategy: "jwt" }, // セッション管理に JWT を使用
+  pages: { signIn: "/login" }, // ログインページの設定 (未認証時に保護されたページにアクセスしようとした場合にリダイレクトされるページ)
 
-  // セッション管理に JWT を使用
-  session: {
-    strategy: "jwt",
-  },
-
-  // ログインページの設定 (未認証時に保護されたページにアクセスしようとした場合にリダイレクトされるページ)
-  pages: {
-    signIn: "/login",
-  },
-
-  // 認証プロバイダーの設定 (認証方法の設定)
+  // 認証プロバイダーの設定
   providers: [
-    // GitHub 認証プロバイダーの設定
+    // GitHub 認証プロバイダー
     Github({
       clientId: process.env.GITHUB_CLIENT_ID!,
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
       allowDangerousEmailAccountLinking: true, // 同じメールアドレスを持つ異なる認証プロバイダーのログインを許可する設定
     }),
 
-    // Google 認証プロバイダーの設定
+    // Google 認証プロバイダー
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       allowDangerousEmailAccountLinking: true, // 同じメールアドレスを持つ異なる認証プロバイダーのログインを許可する設定
     }),
 
-    // Email 認証プロバイダーの設定
+    // Email 認証プロバイダー
     EmailProvider({
-      // メールの送信元を設定
-      from: process.env.SMTP_FROM,
+      // メールの送信元の設定
+      from: emailFrom,
 
-      // メールの送信処理
+      // メールの送信処理の設定
       sendVerificationRequest: async ({ identifier, url }) => {
         try {
-          const fromEmail =
-            process.env.SMTP_FROM || "Rambda <noreply@example.com>";
-
-          // テスト用メールアドレスかどうかを判定
+          // テスト用メールアドレス判定フラグ
           const isTestMail = isTestEmail(identifier);
 
-          // 開発環境 + テストメールアドレス + Mailpit有効の場合はMailpitを使用
-          if (
-            process.env.NODE_ENV === "development" &&
-            isTestMail &&
-            process.env.MAILPIT_ENABLED !== "false"
-          ) {
-            // Mailpitを使用してメールを送信
-            await sendViaMailpit({
-              from: fromEmail,
+          // 開発環境 + テスト用メールアドレスの場合
+          if (process.env.NODE_ENV === "development" && isTestMail) {
+            // テストメールを送信する
+            await sendTestEmail({
+              from: emailFrom,
               to: identifier,
               subject: "Verify your email address",
               html: `<p>Click <a href="${url}">here</a> to verify your email address</p>`,
@@ -99,19 +64,20 @@ export const authOptions: NextAuthOptions = {
             return;
           }
 
+          // メールを送信する
           await resend.emails.send({
-            from: fromEmail,
+            from: emailFrom,
             to: identifier,
             subject: "Verify your email address",
             html: `<p>Click <a href="${url}">here</a> to verify your email address</p>`,
           });
         } catch (error) {
-          // 開発環境の場合はエラーを表示
+          // 開発環境の場合
           if (process.env.NODE_ENV === "development") {
-            console.error("メール送信エラー:", error);
+            console.error("Failed to send verification email:", error);
           }
 
-          // エラーをスロー
+          // 例外をスローする
           throw new Error("Failed to send verification email");
         }
       },
@@ -120,9 +86,41 @@ export const authOptions: NextAuthOptions = {
 
   // コールバックの設定 (認証後の処理)
   callbacks: {
-    // セッション情報の生成 (ブラウザの Cookie に保存されるセッション情報を生成)
-    async session({ token, session }) {
-      // トークンが存在する場合は、セッション情報に追加
+    /**
+     * JWT トークンを生成する
+     *
+     * @param token - JWT トークン
+     * @param user  - ユーザー
+     *
+     * @returns JWT トークン
+     */
+    async jwt({ token, user }: { token: JWT; user: User }): Promise<JWT> {
+      // ユーザーが存在する場合
+      if (user) {
+        // ユーザーの ID を JWT に追加する
+        return { ...token, id: user.id };
+      }
+
+      // ブラウザの Cookie に保存する JWT トークンを返す
+      return token;
+    },
+
+    /**
+     * セッション情報を生成する
+     *
+     * @param token   - JWT トークン
+     * @param session - セッション情報
+     *
+     * @returns セッション情報
+     */
+    async session({
+      token,
+      session,
+    }: {
+      token: JWT;
+      session: Session;
+    }): Promise<Session> {
+      // トークンが存在する場合は、セッション情報に追加する
       if (token) {
         session.user.id = token.id;
         session.user.name = token.name;
@@ -130,20 +128,8 @@ export const authOptions: NextAuthOptions = {
         session.user.image = token.picture;
       }
 
-      // セッション情報を返す
+      // クライアントサイドに返すセッション情報を返す
       return session;
-    },
-
-    // JWT トークンの生成
-    async jwt({ token, user }) {
-      // ユーザーが存在する場合
-      if (user) {
-        // ユーザーの ID を JWT に追加
-        return { ...token, id: user.id };
-      }
-
-      // トークンを返す
-      return token;
     },
   },
 };
