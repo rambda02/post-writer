@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { buttonVariants } from "@/components/ui/button";
-import { Icons } from "@/components/Icons";
+import { Icons } from "@/components/icons";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 

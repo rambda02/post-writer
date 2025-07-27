@@ -8,7 +8,7 @@ import { absoluteUrl, cn, formatDate } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Mdx } from "@/components/mdx-components";
 import { siteConfig } from "@/config/site";
-import { Icons } from "@/components/Icons";
+import { Icons } from "@/components/icons";
 
 // ダイナミックルーティングで受け取るパラメーターの型
 interface PostPageProps {

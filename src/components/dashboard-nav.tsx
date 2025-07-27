@@ -2,7 +2,7 @@
 
 import { SidebarNavItem } from "@/types";
 import Link from "next/link";
-import { Icons } from "@/components/Icons";
+import { Icons } from "@/components/icons";
 import { usePathname } from "next/navigation";
 
 interface DashBoardNavProps {
