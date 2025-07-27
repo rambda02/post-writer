@@ -2,9 +2,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import EmailProvider from "next-auth/providers/email";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
-import type { NextAuthOptions, Session, User } from "next-auth";
-import type { JWT } from "next-auth/jwt";
-
+import type { NextAuthOptions } from "next-auth";
 import { db } from "@/lib/db";
 import { isTestEmail, sendTestEmail } from "@/lib/mail";
 import { resend } from "@/lib/resend";
@@ -86,15 +84,8 @@ export const authOptions: NextAuthOptions = {
 
   // コールバックの設定 (認証後の処理)
   callbacks: {
-    /**
-     * JWT トークンを生成する
-     *
-     * @param token - JWT トークン
-     * @param user  - ユーザー
-     *
-     * @returns JWT トークン
-     */
-    async jwt({ token, user }: { token: JWT; user: User }): Promise<JWT> {
+    // JWT トークンを生成する
+    async jwt({ token, user }) {
       // ユーザーが存在する場合
       if (user) {
         // ユーザーの ID を JWT に追加する
@@ -105,21 +96,8 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
 
-    /**
-     * セッション情報を生成する
-     *
-     * @param token   - JWT トークン
-     * @param session - セッション情報
-     *
-     * @returns セッション情報
-     */
-    async session({
-      token,
-      session,
-    }: {
-      token: JWT;
-      session: Session;
-    }): Promise<Session> {
+    // セッション情報を生成する
+    async session({ token, session }) {
       // トークンが存在する場合は、セッション情報に追加する
       if (token) {
         session.user.id = token.id;
