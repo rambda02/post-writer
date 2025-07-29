@@ -1,9 +1,11 @@
-// メインナビゲーションアイテム
+
 export type NavItem = {
-  title: string;
-  href: string;
-  disabled?: boolean;
-};
+  title: string
+  href: string
+  disabled?: boolean
+}
+
+export type MainNavItem = NavItem
 
 export type SidebarNavItem = {
   title: string;
@@ -21,22 +23,21 @@ export type SidebarNavItem = {
     }
 );
 
-// サイト設定
 export type SiteConfig = {
-  name: string;
-  description: string;
-  url: string;
-  ogImage: string;
+  name: string
+  description: string
+  url: string
+  ogImage: string
   links: {
-    x: string;
-    github: string;
-  };
-};
+    x: string
+    github: string
+  }
+}
 
-// マーケティング設定
+
 export type MarketingConfig = {
-  mainNav: NavItem[];
-};
+  mainNav: MainNavItem[]
+}
 
 export type DashboardConfig = {
   mainNav: NavItem[];
