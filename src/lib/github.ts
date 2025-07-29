@@ -2,6 +2,7 @@ import { siteConfig } from "@/config/site";
 
 /**
  * GitHub リポジトリのスター数を取得する
+ * 
  * @returns スター数 | null
  */
 export async function getGitHubStars(): Promise<string | null> {
