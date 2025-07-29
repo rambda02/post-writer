@@ -3,19 +3,23 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
-import { NavItem } from "@/types";
-import { MobileNav } from "@/components/mobile-nav";
+
+import { MainNavItem } from "@/types";
 import { siteConfig } from "@/config/site";
-import { Icons } from "@/components/icons";
 import { cn } from "@/lib/utils";
+import { Icons } from "@/components/icons";
+import { MobileNav } from "@/components/mobile-nav";
 
 interface MainNavProps {
-  items: NavItem[];
+  items?: MainNavItem[];
   children?: React.ReactNode;
 }
 
 export const MainNav = ({ items, children }: MainNavProps) => {
+  // 現在のパスのセグメントを取得する
   const segment = useSelectedLayoutSegment();
+
+  // モバイルナビゲーションの　表示/非表示　を管理するステートを作成する
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
 
   return (
@@ -30,7 +34,7 @@ export const MainNav = ({ items, children }: MainNavProps) => {
 
       {/* デスクトップナビゲーション */}
       {items?.length ? (
-        <nav className="md:flex gap-6 hidden">
+        <nav className="hidden gap-6 md:flex">
           {items?.map((item, index) => (
             <Link
               key={index}

@@ -1,12 +1,13 @@
 import Link from "next/link";
-import { NavItem } from "@/types";
-import { siteConfig } from "@/config/site";
 import { useLockBodyScroll } from "@uidotdev/usehooks";
-import { Icons } from "@/components/icons";
+
+import { MainNavItem } from "@/types";
+import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
+import { Icons } from "@/components/icons";
 
 interface MobileNavProps {
-  items: NavItem[];
+  items: MainNavItem[];
   children?: React.ReactNode;
   onNavigate?: () => void;
 }
