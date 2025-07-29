@@ -28,9 +28,12 @@ export type SiteConfig = {
   description: string
   url: string
   ogImage: string
+  github: {
+    htmlUrl: string,
+    apiUrl: string,
+  },
   links: {
     x: string
-    github: string
   }
 }
 

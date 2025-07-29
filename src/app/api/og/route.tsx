@@ -109,8 +109,8 @@ export async function GET(req: Request) {
             >
               <Icons.github paint={paint} />
               <div tw="flex ml-2">
-                {new URL(siteConfig.links.github).host +
-                  new URL(siteConfig.links.github).pathname}
+                {new URL(siteConfig.github.htmlUrl).host +
+                  new URL(siteConfig.github.htmlUrl).pathname}
               </div>
             </div>
           </div>
