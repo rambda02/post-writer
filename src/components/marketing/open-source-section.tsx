@@ -16,7 +16,7 @@ export const OpenSourceSection = ({ stars }: { stars: string | null }) => {
           Taxonomy is open source and powered by open source software. <br />{" "}
           The code is available on{" "}
           <Link
-            href={siteConfig.links.github}
+            href={siteConfig.github.htmlUrl}
             target="_blank"
             rel="noreferrer"
             className="underline underline-offset-4"
@@ -29,7 +29,7 @@ export const OpenSourceSection = ({ stars }: { stars: string | null }) => {
         {/* スター数 */}
         {stars && (
           <Link
-            href={siteConfig.links.github}
+            href={siteConfig.github.htmlUrl}
             target="_blank"
             rel="noreferrer"
             className="flex"

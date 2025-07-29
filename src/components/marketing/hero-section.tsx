@@ -36,7 +36,7 @@ export const HeroSection = () => {
 
           {/* GitHub　リンク */}
           <Link
-            href={siteConfig.links.github}
+            href={siteConfig.github.htmlUrl}
             target="_blank"
             rel="noreferrer"
             className={cn(buttonVariants({ variant: "outline", size: "lg" }))}

@@ -41,7 +41,7 @@ export const SiteFooter = ({
             </a>
             . The source code is available on{" "}
             <a
-              href={siteConfig.links.github}
+              href={siteConfig.github.htmlUrl}
               target="_blank"
               rel="noreferrer"
               className="font-medium underline underline-offset-4"
