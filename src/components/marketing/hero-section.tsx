@@ -1,19 +1,20 @@
 import Link from "next/link";
+
+import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
-import { siteConfig } from "@/config/site";
 
 export const HeroSection = () => {
   return (
     <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32">
       <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
-        {/* ツイッターリンク */}
+        {/* X リンク */}
         <Link
           href={siteConfig.links.x}
           className="rounded-2xl bg-muted px-4 py-1.5 text-sm font-medium"
           target="_blank"
         >
-          Follow along on Twitter
+          Follow along on X
         </Link>
 
         {/* 見出し */}
@@ -34,7 +35,7 @@ export const HeroSection = () => {
             Get Started
           </Link>
 
-          {/* GitHub　リンク */}
+          {/* GitHub リンク */}
           <Link
             href={siteConfig.github.htmlUrl}
             target="_blank"
