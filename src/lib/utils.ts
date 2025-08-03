@@ -1,9 +1,14 @@
-import { clsx, type ClassValue } from "clsx"; // クラス名を結合するためのライブラリ
-import { twMerge } from "tailwind-merge"; // Tailwind CSSのクラスを結合するためのライブラリ
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
-// クラスを結合するユーティリティ関数
-export function cn(...inputs: ClassValue[]) {
-  // クラス名を結合して、Tailwind CSSのクラスを生成する
+/**
+ * クラス名を結合して、Tailwind CSSのクラスを生成する
+ *
+ * @param inputs クラス名の配列
+ *
+ * @returns 結合されたクラス名
+ */
+export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs));
 }
 
@@ -16,7 +21,13 @@ export function formatDate(date: string) {
   });
 }
 
-// 絶対URLを生成する関数
-export function absoluteUrl(path: string) {
-  return `${process.env.NEXT_PUBLIC_APP_URL}${path}`; // サイトのURLとパスを結合して、絶対URLを生成する
+/**
+ * 絶対 URL を生成する
+ *
+ * @param path パス
+ *
+ * @returns 絶対 URL
+ */
+export function absoluteUrl(path: string): string {
+  return `${process.env.NEXT_PUBLIC_APP_URL}${path}`;
 }

@@ -23,7 +23,7 @@ export const MainNav = ({ items, children }: MainNavProps) => {
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
 
   return (
-    <div className="flex items-center md:gap-10">
+    <div className="flex gap-6 md:gap-10">
       {/* ロゴ */}
       <Link href="/" className="hidden items-center space-x-2 md:flex">
         <Icons.logo />
