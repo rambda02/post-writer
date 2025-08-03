@@ -6,7 +6,7 @@ import "@/styles/mdx.css";
 import { allAuthors, allPosts } from "contentlayer/generated";
 import { absoluteUrl, cn, formatDate } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
-import { Mdx } from "@/components/mdx-components";
+import { Mdx } from "@/components/mdx/mdx-components";
 import { siteConfig } from "@/config/site";
 import { Icons } from "@/components/icons";
 
