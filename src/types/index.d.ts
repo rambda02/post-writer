@@ -1,11 +1,18 @@
+import { User } from "@prisma/client";
 
-export type NavItem = {
-  title: string
-  href: string
-  disabled?: boolean
+import { Icons } from "@/components/icons";
+
+export interface Params {
+  slug: string[];
 }
 
-export type MainNavItem = NavItem
+export interface NavItem {
+  title: string;
+  href: string;
+  disabled?: boolean;
+}
+
+export type MainNavItem = NavItem;
 
 export type SidebarNavItem = {
   title: string;
@@ -23,26 +30,42 @@ export type SidebarNavItem = {
     }
 );
 
-export type SiteConfig = {
-  name: string
-  description: string
-  url: string
-  ogImage: string
+export interface SiteConfig {
+  name: string;
+  description: string;
+  url: string;
+  ogImage: string;
   github: {
-    htmlUrl: string,
-    apiUrl: string,
-  },
+    htmlUrl: string;
+    apiUrl: string;
+  };
   links: {
-    x: string
-  }
+    x: string;
+  };
 }
 
-
-export type MarketingConfig = {
-  mainNav: MainNavItem[]
-}
-
-export type DashboardConfig = {
-  mainNav: NavItem[];
+export interface DocsConfig {
+  mainNav: MainNavItem[];
   sidebarNav: SidebarNavItem[];
-};
+}
+
+export interface MarketingConfig {
+  mainNav: MainNavItem[];
+}
+
+export interface DashboardConfig {
+  mainNav: MainNavItem[];
+  sidebarNav: SidebarNavItem[];
+}
+
+export interface SubscriptionPlan {
+  name: string;
+  description: string;
+  stripePriceId: string;
+}
+
+export type UserSubscriptionPlan = SubscriptionPlan &
+  Pick<User, "stripeCustomerId" | "stripeSubscriptionId"> & {
+    stripeCurrentPeriodEnd: number;
+    isPro: boolean;
+  };
