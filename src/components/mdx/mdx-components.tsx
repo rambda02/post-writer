@@ -1,10 +1,22 @@
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 import { useMDXComponent } from "next-contentlayer2/hooks";
+
+import { cn } from "@/lib/utils";
 import { Callout } from "@/components/callout";
 import { MdxCard } from "@/components/mdx-card";
 
 const components = {
+  // h2
+  h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h2
+      className={cn(
+        "mt-10 scroll-m-20 border-b pb-1 text-3xl font-semibold tracking-tight first:mt-0",
+        className
+      )}
+      {...props}
+    />
+  ),
+
   // リンク
   a: ({
     className,
@@ -15,6 +27,15 @@ const components = {
       {...props}
     />
   ),
+
+  // 本文
+  p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
+    <p
+      className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}
+      {...props}
+    />
+  ),
+
   // 引用
   blockquote: ({
     className,
@@ -25,6 +46,7 @@ const components = {
       {...props}
     />
   ),
+
   // コードブロック、コードスパン
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <code
@@ -35,6 +57,7 @@ const components = {
       {...props}
     />
   ),
+
   Image, // 画像
   Callout, // コールアウト
   Card: MdxCard, // カード
@@ -45,6 +68,7 @@ interface MdxProps {
 }
 
 export function Mdx({ code }: MdxProps) {
+  // MDX コンテンツをコンポーネントに変換する
   const Component = useMDXComponent(code);
 
   return (
