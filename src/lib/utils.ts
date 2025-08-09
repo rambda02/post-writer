@@ -12,12 +12,18 @@ export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs));
 }
 
-// 日付をフォーマットする関数
-export function formatDate(date: string) {
+/**
+ * 日付を Month Day, Year の形式でフォーマットする
+ *
+ * @param date 日付
+ *
+ * @returns フォーマットされた日付
+ */
+export function formatDate(date: string): string {
   return new Date(date).toLocaleDateString("en-US", {
-    year: "numeric", // 年
-    month: "long", // 月
-    day: "numeric", // 日
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 }
 

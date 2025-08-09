@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { allPosts } from "contentlayer/generated";
 import { compareDesc } from "date-fns";
+
 import { formatDate } from "@/lib/utils";
 
 export const metadata = {
@@ -9,11 +10,11 @@ export const metadata = {
 };
 
 export default function BlogPage() {
-  // 投稿を取得する
+  // 公開されている投稿を取得する
   const posts = allPosts
-    .filter((post) => post.published) // 公開されている投稿を取得する
+    .filter((post) => post.published)
     .sort((a, b) => {
-      return compareDesc(new Date(a.date), new Date(b.date)); // 降順の日付でソートする
+      return compareDesc(new Date(a.date), new Date(b.date));
     });
 
   return (
