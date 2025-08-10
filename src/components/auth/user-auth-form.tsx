@@ -3,21 +3,21 @@
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { userAuthSchema } from "@/lib/validations/auth";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
 import { buttonVariants } from "@/components/ui/button";
-import { Icons } from "@/components/icons";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
-// フォームのデータ型を定義 (バリデーションを行う)
+import { cn } from "@/lib/utils";
+import { userAuthSchema } from "@/lib/validations/auth";
+import { Icons } from "@/components/icons";
+
+// Zod スキーマから TypeScript の型を自動生成する
 type FormData = z.infer<typeof userAuthSchema>;
 
-// 内部コンポーネントを作成
 function UserAuthFormContent({
   className,
   ...props
@@ -25,32 +25,32 @@ function UserAuthFormContent({
   const [isLoading, setIsLoading] = useState<boolean>(false); // ローディング状態を管理する
   const [isGitHubLoading, setIsGitHubLoading] = useState<boolean>(false); // GitHub ローディング状態を管理する
   const [isGoogleLoading, setIsGoogleLoading] = useState<boolean>(false); // Google ローディング状態を管理する
-  const searchParams = useSearchParams(); // クエリパラメータを取得する
+  const searchParams = useSearchParams();
 
-  // フォームのデータを管理する (主にバリデーションを行う)
   const {
-    register, // フォーム要素を登録する関数
-    handleSubmit, // フォーム送信を処理する関数
-    formState: { errors }, // バリデーションエラー情報
+    register,
+    handleSubmit,
+    formState: { errors },
   } = useForm<FormData>({
-    // バリデーションを行う
     resolver: zodResolver(userAuthSchema),
   });
 
   /**
-   * フォームのデータを送信する
-   * @param data (FormData)
-   * @returns トーストメッセージを表示する
+   * サインイン処理を実行する
+   *
+   * @param data - フォームデータ
+   *
+   * @returns {void}
    */
-  async function onSubmit(data: FormData) {
+  async function handleSignIn(data: FormData): Promise<void> {
     // ローディング状態を有効にする
     setIsLoading(true);
 
-    // メールアドレスを送信する
+    // サインイン処理を実行する
     const signInResult = await signIn("email", {
       email: data.email.toLowerCase(), // メールアドレスを小文字に変換する
-      redirect: false, // リダイレクトを無効にする
-      callbackUrl: searchParams?.get("from") || "/dashboard", // リダイレクト先の URL を設定する
+      redirect: false, // デフォルトのリダイレクトを無効にする
+      callbackUrl: searchParams?.get("callbackUrl") || "/dashboard", // リダイレクト先の URL を設定する
     });
 
     // ローディング状態を無効にする
@@ -58,22 +58,24 @@ function UserAuthFormContent({
 
     // サインインに失敗した場合
     if (!signInResult?.ok) {
-      return toast.error("Something went wrong.", {
+      toast.error("Something went wrong.", {
         description: "Your sign in request failed. Please try again.",
         duration: 5000, // 5秒間表示　（ミリ秒単位）
       });
+      return;
     }
 
     // サインインに成功した場合
-    return toast.success("Check your email", {
+    toast.success("Check your email", {
       description: "We sent you a login link. Be sure to check your spam too.",
       duration: 5000, // 5秒間表示　（ミリ秒単位）
     });
+    return;
   }
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(handleSignIn)}>
         <div className="grid gap-2">
           <div className="grid gap-1">
             <Label className="sr-only" htmlFor="email">
@@ -101,7 +103,7 @@ function UserAuthFormContent({
             )}
           </div>
 
-          {/* メールアドレスの送信ボタン */}
+          {/* サインインボタン */}
           <button
             className={cn(buttonVariants({ size: "lg" }))}
             disabled={isLoading}
@@ -153,7 +155,6 @@ function UserAuthFormContent({
   );
 }
 
-// メインコンポーネント
 export const UserAuthForm = (props: React.HTMLAttributes<HTMLDivElement>) => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
