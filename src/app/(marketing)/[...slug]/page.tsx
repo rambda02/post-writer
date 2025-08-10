@@ -6,7 +6,7 @@ import "@/styles/mdx.css";
 import { siteConfig } from "@/config/site";
 import { Params } from "@/types";
 import { absoluteUrl } from "@/lib/utils";
-import { getContentFromParams } from "@/lib/contentlayer";
+import { getPageFromParams } from "@/lib/contentlayer";
 import { Mdx } from "@/components/mdx/mdx-components";
 
 export async function generateMetadata({
@@ -15,7 +15,7 @@ export async function generateMetadata({
   params: Promise<Params>;
 }): Promise<Metadata> {
   // パラメーターからページを取得する
-  const page = await getContentFromParams(params, "page");
+  const page = await getPageFromParams(params);
 
   // ページが取得できない場合
   if (!page) {
@@ -24,7 +24,7 @@ export async function generateMetadata({
   }
 
   // OG 画像の URL を生成する
-  const ogUrl = new URL(`${process.env.NEXT_PUBLIC_APP_URL}/api/og`);
+  const ogUrl = new URL(`${siteConfig.url}/api/og`);
 
   // クエリパラメーターを設定する
   ogUrl.searchParams.set("heading", page.title);
@@ -69,7 +69,7 @@ export default async function PagePage({
   params: Promise<Params>;
 }) {
   // パラメーターからページを取得する
-  const page = await getContentFromParams(params, "page");
+  const page = await getPageFromParams(params);
 
   // ページが取得できない場合
   if (!page) {
