@@ -1,16 +1,17 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
-import { UserAuthForm } from "@/components/auth/user-auth-form";
+
+import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
+import { UserAuthForm } from "@/components/auth/user-auth-form";
 
 export const metadata: Metadata = {
   title: "Login",
   description: "Login to your account",
 };
 
-export default function Login() {
+export default function LoginPage() {
   return (
     <div className="container flex flex-col items-center justify-center h-screen w-screen">
       {/* バックボタン */}
@@ -24,6 +25,8 @@ export default function Login() {
         <Icons.chevronLeft />
         Back
       </Link>
+
+      {/* ログインフォーム */}
       <div className="mx-auto w-full sm:w-[350px] flex flex-col justify-center space-y-6">
         <div className="flex flex-col text-center space-y-2">
           <Icons.logo className="mx-auto h-6 w-6" />
