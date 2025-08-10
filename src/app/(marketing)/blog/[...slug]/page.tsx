@@ -2,134 +2,94 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import "@/styles/mdx.css";
-import { allAuthors, allPosts } from "contentlayer/generated";
-import { absoluteUrl, cn, formatDate } from "@/lib/utils";
+import { allPosts } from "contentlayer/generated";
 import { buttonVariants } from "@/components/ui/button";
-import { Mdx } from "@/components/mdx/mdx-components";
+
+import "@/styles/mdx.css";
 import { siteConfig } from "@/config/site";
+import { Params } from "@/types";
+import { absoluteUrl, cn, formatDate } from "@/lib/utils";
+import { getPostFromParams, getAuthorsFromPost } from "@/lib/contentlayer";
 import { Icons } from "@/components/icons";
+import { Mdx } from "@/components/mdx/mdx-components";
 
-// ダイナミックルーティングで受け取るパラメーターの型
-interface PostPageProps {
-  params: Promise<{
-    slug: string[];
-  }>;
-}
-
-/**
- * パラメーターからブログ記事のデータを取得する関数
- * @param params パラメーター
- * @returns ブログ記事のデータ (Post) | null
- */
-async function getPostFromParams({ params }: PostPageProps) {
-  // パラメーターから slug を取得
-  const slug = (await params).slug.join("/");
-
-  // ブログ記事のデータを取得
-  const post = allPosts.find((post) => post.slugAsParams === slug);
-
-  // ブログ記事のデータが存在しない場合は null を返す
-  if (!post) {
-    return null;
-  }
-
-  return post;
-}
-
-/**
- * ブログ記事のメタデータを生成する関数
- * @param params パラメーター
- * @returns ブログ記事のメタデータ (Metadata) | {}
- */
-export async function generateMetadata(
-  params: PostPageProps
-): Promise<Metadata> {
-  // パラメーターからブログ記事のデータを取得
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<Params>;
+}): Promise<Metadata> {
+  // パラメーターから投稿を取得する
   const post = await getPostFromParams(params);
 
-  // ブログ記事のデータが存在しない場合は空のオブジェクトを返す
+  // 投稿が存在しない場合
   if (!post) {
+    // メタデータを空にする
     return {};
   }
 
-  // Open Graph の URL を生成
+  // OG 画像の URL を生成する
   const ogUrl = new URL(`${siteConfig.url}/api/og`);
 
-  // Open Graph の URL にパラメーターを設定
+  // クエリパラメーターを設定する
   ogUrl.searchParams.set("heading", post.title);
   ogUrl.searchParams.set("type", "Blog Post");
   ogUrl.searchParams.set("mode", "dark");
 
   return {
-    title: post.title, // タイトル
-    description: post.description, // 説明
-    // 著者
+    title: post.title,
+    description: post.description,
     authors: post.authors.map((author) => ({
       name: author,
     })),
-
-    // Open Graphの設定 (SEO 対策、 SNS シェアのための設定)
     openGraph: {
-      title: post.title, // タイトル
-      description: post.description, // 説明
-      type: "article", // ウェブサイトの設定
-      url: absoluteUrl(post.slug), // サイトの URL
-      // Open Graph 画像の設定
+      title: post.title,
+      description: post.description,
+      type: "article",
+      url: absoluteUrl(post.slug),
       images: [
         {
-          url: ogUrl.toString(), // Open Graph 画像の URL
-          width: 1200, // 画像の幅
-          height: 630, // 画像の高さ
-          alt: post.title, // 画像の代替テキスト
+          url: ogUrl.toString(),
+          width: 1200,
+          height: 630,
+          alt: post.title,
         },
       ],
-      locale: "ja", // 言語の設定
-      siteName: siteConfig.name, // サイトの名前
     },
-    // Twitter の設定 (SEO 対策、 SNS シェアのための設定)
     twitter: {
-      card: "summary_large_image", // カードの設定
-      title: post.title, // タイトル
-      description: post.description, // 説明
-      images: [ogUrl.toString()], // 画像
-      creator: "@rambda", // 作成者
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+      images: [ogUrl.toString()],
     },
   };
 }
 
-/**
- * 動的ルーティングのページをビルド時に静的生成する
- * パラメーター (...slug) を Next.js に渡して、各ブログ記事を事前に静的生成する
- * @returns ブログ記事のパラメーター (PostPageProps["params"][])
- */
-export async function generateStaticParams(): Promise<
-  Awaited<PostPageProps["params"]>[]
-> {
+export async function generateStaticParams(): Promise<Params[]> {
   return allPosts.map((post) => ({
-    // すべてのブログ記事に対して、 slugAsParams プロパティを取得して、 / で分割した配列を返す
-    // 例： 　{slug: ["blog", "first-post"]}
     slug: post.slugAsParams.split("/"),
   }));
 }
 
-export default async function PostPage(params: PostPageProps) {
-  // パラメーターからブログ記事を取得する
+export default async function PostPage({
+  params,
+}: {
+  params: Promise<Params>;
+}) {
+  // パラメーターから投稿を取得する
   const post = await getPostFromParams(params);
 
-  // ブログ記事が存在しない場合は 404 エラーを返す
+  // 投稿が存在しない場合
   if (!post) {
+    // 404 エラーを返す
     notFound();
   }
 
-  // 著者のデータを取得する
-  const authors = post.authors.map((author) =>
-    allAuthors.find(({ slug }) => slug === `/authors/${author}`)
-  );
+  // 著者を取得する
+  const authors = getAuthorsFromPost(post);
 
   return (
     <article className="container relative max-w-3xl py-6 lg:py-10">
-      {/* ブログ記事の一覧へのリンク */}
+      {/* 投稿一覧へのリンク */}
       <Link
         href="/blog"
         className={cn(
@@ -142,7 +102,7 @@ export default async function PostPage(params: PostPageProps) {
       </Link>
 
       <div>
-        {/* ブログ記事の日付 */}
+        {/* 投稿の日付 */}
         {post.date && (
           <time
             dateTime={post.date}
@@ -152,12 +112,12 @@ export default async function PostPage(params: PostPageProps) {
           </time>
         )}
 
-        {/* ブログ記事のタイトル */}
+        {/* タイトル */}
         <h1 className="mt-2 inline-block font-heading text-4xl leading-tighter lg:text-5xl">
           {post.title}
         </h1>
 
-        {/* ブログ記事の著者 */}
+        {/* 著者 */}
         {authors?.length ? (
           <div className="mt-4 flex space-x-4">
             {authors.map((author) =>
@@ -187,7 +147,7 @@ export default async function PostPage(params: PostPageProps) {
         ) : null}
       </div>
 
-      {/* ブログ記事の画像 */}
+      {/* 画像 */}
       {post.image && (
         <Image
           src={post.image}
@@ -199,13 +159,13 @@ export default async function PostPage(params: PostPageProps) {
         />
       )}
 
-      {/* ブログ記事の内容 */}
+      {/* 内容 */}
       <Mdx code={post.body.code} />
 
-      {/* ブログ記事の区切り線 */}
+      {/* 区切り線 */}
       <hr className="mt-12" />
 
-      {/* ブログ記事の一覧へのリンク */}
+      {/* 投稿一覧へのリンク */}
       <div className="flex justify-center py-6 lg:py-10">
         <Link
           href="/blog"
