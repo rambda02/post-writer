@@ -12,16 +12,21 @@ interface DashboardNavProps {
 }
 
 export function DashboardNav({ items }: DashboardNavProps) {
+  // 現在のパスを取得する
   const path = usePathname();
 
+  // アイテムがない場合
   if (!items?.length) {
+    // 何も表示しない
     return null;
   }
 
   return (
     <nav className="grid items-start gap-2">
       {items.map((item, index) => {
+        // アイコンを取得する
         const Icon = Icons[item.icon || "arrowRight"];
+
         return (
           item.href && (
             <Link key={index} href={item.disabled ? "/" : item.href}>
