@@ -1,9 +1,10 @@
 import { Metadata } from "next";
 import Link from "next/link";
+
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
-import { UserAuthForm } from "@/components/auth/user-auth-form";
 import { Icons } from "@/components/icons";
+import { UserAuthForm } from "@/components/auth/user-auth-form";
+import { buttonVariants } from "@/components/ui/button";
 
 export const metadata: Metadata = {
   title: "Create an account",
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function Register() {
   return (
-    <div className="container grid flex-col lg:grid-cols-2 h-screen w-screen items-center justify-center lg:max-w-none lg:px-0">
+    <div className="container grid h-screen w-screen flex-col items-center justify-center lg:max-w-none lg:grid-cols-2 lg:px-0">
       <Link
         href={"/login"}
         className={cn(
@@ -22,7 +23,7 @@ export default function Register() {
       >
         Login
       </Link>
-      <div className="h-full bg-muted lg:block hidden" />
+      <div className="h-full bg-muted lg:block hidden"></div>
       <div className="lg:p-8">
         <div className="mx-auto w-full sm:w-[350px] flex flex-col justify-center space-y-6">
           {/* ヘッダー */}

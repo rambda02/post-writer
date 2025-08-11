@@ -40,10 +40,7 @@ export async function sendTestEmail(options: {
   const transport = nodemailer.createTransport({
     host: process.env.MAILPIT_HOST || "localhost",
     port: parseInt(process.env.MAILPIT_PORT || "1025"),
-    secure: false, // TLS/SSL 暗号化を無効化
-    tls: {
-      rejectUnauthorized: false, // 証明書の検証を無効化
-    },
+    secure: false, // 接続時に暗号化を使わない
   });
 
   // メールを送信する
