@@ -1,29 +1,61 @@
+import { notFound } from "next/navigation";
+
+import { dashboardConfig } from "@/config/dashboard";
+import { getCurrentUser } from "@/lib/session";
 import { MainNav } from "@/components/main-nav";
 import { SiteFooter } from "@/components/site-footer";
-import { dashboardConfig } from "@/config/dashboard";
-import { DashBoardNav } from "@/components/dashboard-nav";
+import { DashboardNav } from "@/components/dashboard/nav";
+import { UserAccountNav } from "@/components/dashboard/user-account-nav";
 
-export default function DashboardLayout({
+interface DashboardLayoutProps {
+  children?: React.ReactNode;
+}
+
+export default async function DashboardLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: DashboardLayoutProps) {
+  // 認証ユーザーを取得する
+  const user = await getCurrentUser();
+
+  // 認証ユーザーを取得できなかった場合
+  if (!user) {
+    // 404 エラーを返す
+    return notFound();
+  }
+
   return (
     <div className="flex min-h-screen flex-col space-y-6">
+      {/* ヘッダー */}
       <header className="sticky top-0 z-40 border-b bg-background">
-        <div className="container mx-auto px-8 flex items-center justify-between py-4 h-16">
+        <div className="container flex h-16 items-center justify-between py-4">
+          {/* メインナビゲーション */}
           <MainNav items={dashboardConfig.mainNav} />
+
+          {/* ユーザーアカウントナビゲーション */}
+          <UserAccountNav
+            user={{
+              name: user.name,
+              image: user.image,
+              email: user.email,
+            }}
+          />
         </div>
       </header>
-      <div className="container mx-auto px-8 grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
-        <aside className="hidden md:flex w-[200px] flex-col">
-          <DashBoardNav items={dashboardConfig.sidebarNav} />
+
+      <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
+        {/* サイドバー */}
+        <aside className="hidden w-[200px] flex-col md:flex">
+          <DashboardNav items={dashboardConfig.sidebarNav} />
         </aside>
-        <main className="flex flex-col w-full flex-1 overflow-hidden">
+
+        {/* メインコンテンツ */}
+        <main className="flex w-full flex-1 flex-col overflow-hidden">
           {children}
         </main>
       </div>
-      <SiteFooter />
+
+      {/* フッター */}
+      <SiteFooter className="border-t" />
     </div>
   );
 }
