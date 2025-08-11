@@ -1,9 +1,9 @@
-import { DashBoardShell } from "@/components/dashboard-shell";
+import { DashboardShell } from "@/components/dashboard/shell";
 
 export default function BillingPage() {
   return (
-    <DashBoardShell>
+    <DashboardShell>
       <div>Billing</div>
-    </DashBoardShell>
+    </DashboardShell>
   );
 }
