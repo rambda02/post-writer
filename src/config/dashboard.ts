@@ -3,28 +3,28 @@ import { DashboardConfig } from "@/types";
 export const dashboardConfig: DashboardConfig = {
   mainNav: [
     {
-      title: "ドキュメント",
+      title: "Documentation",
       href: "/docs",
     },
     {
-      title: "サポート",
+      title: "Support",
       href: "/support",
       disabled: true,
     },
   ],
   sidebarNav: [
     {
-      title: "記事投稿",
+      title: "Posts",
       href: "/dashboard",
       icon: "post",
     },
     {
-      title: "お支払い",
+      title: "Billing",
       href: "/dashboard/billing",
       icon: "billing",
     },
     {
-      title: "設定",
+      title: "Settings",
       href: "/dashboard/settings",
       icon: "settings",
     },
