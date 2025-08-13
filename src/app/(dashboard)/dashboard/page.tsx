@@ -6,7 +6,7 @@ import { getCurrentUser } from "@/lib/session";
 import { EmptyPlaceholder } from "@/components/empty-placeholder";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { PostCreateButton } from "@/components/dashboard/post-create-button";
-import { PostItem } from "@/components/post-item";
+import { PostItem } from "@/components/dashboard/post-item";
 import { DashboardShell } from "@/components/dashboard/shell";
 
 export const metadata = {
