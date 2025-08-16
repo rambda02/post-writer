@@ -59,35 +59,58 @@ export async function DELETE(
   }
 }
 
-export async function DELETE(
-  req: NextRequest,
+/**
+ * 投稿を更新する
+ *
+ * @param req - リクエスト
+ * @param context - コンテキスト
+ *
+ * @returns - 200 成功
+ *            403 認証エラー
+ *            500 サーバーエラー
+ */
+export async function PATCH(
+  req: Request,
   context: z.infer<typeof routeContextSchema>
 ) {
   try {
-    // parseAsyncは非同期で動作する
-    // context.paramsがPromiseであることを検証
-    // そのPromiseが解決されるのを待機
-    // 解決された値が{ postId: string }の形式であることを検証
+    // 投稿 ID を取得する
     const { params } = await routeContextSchema.parseAsync(context);
     const { postId } = await params;
 
+    // ユーザーが投稿にアクセスできない場合
     if (!(await verifyCurrentUserHasAccessToPost(postId))) {
-      return NextResponse.json(null, { status: 403 });
+      // 403 エラーを返す
+      return new Response(null, { status: 403 });
     }
 
-    await db.post.delete({
+    // リクエストボディを取得する
+    const json = await req.json();
+    const body = postPatchSchema.parse(json);
+
+    // 投稿を更新する
+    await db.post.update({
       where: {
         id: postId,
       },
+      data: {
+        title: body.title,
+        content: body.content,
+      },
     });
 
-    return new Response(null, { status: 204 });
+    // 200 成功を返す
+    return new Response(null, { status: 200 });
   } catch (error) {
+    // バリデーションエラーの場合
     if (error instanceof z.ZodError) {
-      return NextResponse.json(error.issues, { status: 422 });
-    } else {
-      return NextResponse.json(null, { status: 500 });
+      // 422 エラーを返す
+      return new Response(JSON.stringify(error.issues), { status: 422 });
     }
+
+    // サーバーエラーの場合
+    // 500 エラーを返す
+    return new Response(null, { status: 500 });
   }
 }
 
