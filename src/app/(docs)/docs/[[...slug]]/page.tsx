@@ -6,32 +6,19 @@ import { Mdx } from "@/components/mdx/mdx-components";
 import { DocsPageHeader } from "@/components/page-header";
 import { DocsPager } from "@/components/pager";
 import { DashboardTableOfContents } from "@/components/toc";
+import { Params } from "@/types";
+import { getDocFromParams } from "@/lib/contentlayer";
 
 import "@/styles/mdx.css";
 import { Metadata } from "next";
 
 import { absoluteUrl } from "@/lib/utils";
 
-interface DocPageProps {
-  params: {
-    slug: string[];
-  };
-}
-
-async function getDocFromParams(params: DocPageProps["params"]) {
-  const slug = params.slug?.join("/") || "";
-  const doc = allDocs.find((doc) => doc.slugAsParams === slug);
-
-  if (!doc) {
-    return null;
-  }
-
-  return doc;
-}
-
 export async function generateMetadata({
   params,
-}: DocPageProps): Promise<Metadata> {
+}: {
+  params: Promise<Params>;
+}): Promise<Metadata> {
   const doc = await getDocFromParams(params);
 
   if (!doc) {
@@ -71,15 +58,13 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams(): Promise<
-  DocPageProps["params"][]
-> {
+export async function generateStaticParams(): Promise<Params[]> {
   return allDocs.map((doc) => ({
     slug: doc.slugAsParams.split("/"),
   }));
 }
 
-export default async function DocPage({ params }: DocPageProps) {
+export default async function DocPage({ params }: { params: Promise<Params> }) {
   const doc = await getDocFromParams(params);
 
   if (!doc) {
