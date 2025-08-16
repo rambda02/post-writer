@@ -4,6 +4,20 @@ import Stripe from "stripe";
 import { db } from "@/lib/db";
 import { stripe } from "@/lib/stripe";
 
+// Stripeの型定義で不足している型を補完
+interface StripeSubscription {
+  id: string;
+  customer: string;
+  current_period_end: number;
+  items: {
+    data: Array<{
+      price: {
+        id: string;
+      };
+    }>;
+  };
+}
+
 export async function POST(req: Request) {
   const body = await req.text();
   const signature = (await headers()).get("Stripe-Signature") as string;
@@ -30,9 +44,9 @@ export async function POST(req: Request) {
 
   if (event.type === "checkout.session.completed") {
     // Retrieve the subscription details from Stripe.
-    const subscription = await stripe.subscriptions.retrieve(
+    const subscription = (await stripe.subscriptions.retrieve(
       session.subscription as string
-    );
+    )) as unknown as StripeSubscription;
 
     // Update the user stripe into in our database.
     // Since this is the initial subscription, we need to update
@@ -49,14 +63,14 @@ export async function POST(req: Request) {
           subscription.current_period_end * 1000
         ),
       },
-    })
+    });
   }
 
   if (event.type === "invoice.payment_succeeded") {
     // Retrieve the subscription details from Stripe.
-    const subscription = await stripe.subscriptions.retrieve(
+    const subscription = (await stripe.subscriptions.retrieve(
       session.subscription as string
-    )
+    )) as unknown as StripeSubscription;
 
     // Update the price id and set the new period end.
     await db.user.update({
@@ -69,8 +83,8 @@ export async function POST(req: Request) {
           subscription.current_period_end * 1000
         ),
       },
-    })
+    });
   }
 
-  return new Response(null, { status: 200 })
+  return new Response(null, { status: 200 });
 }
