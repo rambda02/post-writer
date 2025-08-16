@@ -1,10 +1,10 @@
-import * as React from "react";
+import { HTMLAttributes, ReactNode, SVGProps } from "react";
 
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
 
-interface EmptyPlaceholderProps extends React.HTMLAttributes<HTMLDivElement> {
-  children?: React.ReactNode;
+interface EmptyPlaceholderProps extends HTMLAttributes<HTMLDivElement> {
+  children?: ReactNode;
 }
 
 export function EmptyPlaceholder({
@@ -28,7 +28,7 @@ export function EmptyPlaceholder({
 }
 
 interface EmptyPlaceholderIconProps
-  extends Partial<React.SVGProps<SVGSVGElement>> {
+  extends Partial<SVGProps<SVGSVGElement>> {
   name: keyof typeof Icons;
 }
 
@@ -37,9 +37,12 @@ EmptyPlaceholder.Icon = function EmptyPlaceHolderIcon({
   className,
   ...props
 }: EmptyPlaceholderIconProps) {
+  // アイコンを取得する
   const Icon = Icons[name];
 
+  // アイコンが存在しない場合
   if (!Icon) {
+    // null を返す
     return null;
   }
 
@@ -50,9 +53,8 @@ EmptyPlaceholder.Icon = function EmptyPlaceHolderIcon({
   );
 };
 
-interface EmptyPlacholderTitleProps
-  extends React.HTMLAttributes<HTMLHeadingElement> {
-  children?: React.ReactNode;
+interface EmptyPlacholderTitleProps extends HTMLAttributes<HTMLHeadingElement> {
+  children?: ReactNode;
 }
 
 EmptyPlaceholder.Title = function EmptyPlaceholderTitle({
@@ -65,8 +67,8 @@ EmptyPlaceholder.Title = function EmptyPlaceholderTitle({
 };
 
 interface EmptyPlacholderDescriptionProps
-  extends React.HTMLAttributes<HTMLParagraphElement> {
-  children?: React.ReactNode;
+  extends HTMLAttributes<HTMLParagraphElement> {
+  children?: ReactNode;
 }
 
 EmptyPlaceholder.Description = function EmptyPlaceholderDescription({
