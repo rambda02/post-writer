@@ -11,7 +11,36 @@ const postCreateSchema = z.object({
   content: z.string().optional(),
 });
 
+export async function GET() {
+  try {
+    const session = await getServerSession(authOptions);
 
+    if (!session) {
+      return new Response("Unauthorized", { status: 403 });
+    }
+
+    const { user } = session;
+    const posts = await db.post.findMany({
+      select: {
+        id: true,
+        title: true,
+        published: true,
+        createdAt: true,
+      },
+      where: {
+        authorId: user.id,
+      },
+    });
+
+    return new Response(JSON.stringify(posts));
+  } catch (error) {
+    if (process.env.NODE_ENV === "development") {
+      console.error(error);
+    }
+
+    return new Response(null, { status: 500 });
+  }
+}
 
 /**
  * 投稿を作成する
