@@ -7,6 +7,8 @@ import { Icons } from "@/components/icons";
 import { Mdx } from "@/components/mdx/mdx-components";
 import { DocsPageHeader } from "@/components/page-header";
 import { DashboardTableOfContents } from "@/components/toc";
+import { Params } from "@/types";
+import { getGuideFromParams } from "@/lib/contentlayer";
 
 import "@/styles/mdx.css";
 import { Metadata } from "next";
@@ -14,26 +16,12 @@ import { Metadata } from "next";
 import { absoluteUrl, cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 
-interface GuidePageProps {
-  params: {
-    slug: string[];
-  };
-}
-
-async function getGuideFromParams(params: GuidePageProps["params"]) {
-  const slug = params?.slug?.join("/");
-  const guide = allGuides.find((guide) => guide.slugAsParams === slug);
-
-  if (!guide) {
-    return null;
-  }
-
-  return guide;
-}
 
 export async function generateMetadata({
   params,
-}: GuidePageProps): Promise<Metadata> {
+}: {
+  params: Promise<Params>;
+}): Promise<Metadata> {
   const guide = await getGuideFromParams(params);
 
   if (!guide) {
@@ -73,15 +61,13 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams(): Promise<
-  GuidePageProps["params"][]
-> {
+export async function generateStaticParams(): Promise<Params[]> {
   return allGuides.map((guide) => ({
     slug: guide.slugAsParams.split("/"),
   }));
 }
 
-export default async function GuidePage({ params }: GuidePageProps) {
+export default async function GuidePage({ params }: { params: Promise<Params> }) {
   const guide = await getGuideFromParams(params);
 
   if (!guide) {
