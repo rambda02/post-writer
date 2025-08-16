@@ -1,10 +1,12 @@
 import {
   allAuthors,
   allPosts,
+  allDocs,
   allGuides,
   allPages,
   type Author,
   type Post,
+  type Doc,
   type Guide,
   type Page,
 } from "contentlayer/generated";
@@ -41,6 +43,21 @@ export async function getPostFromParams(
   const slug = (await params).slug.join("/");
 
   return allPosts.find((post) => post.slugAsParams === slug) ?? null;
+}
+
+/**
+ * パラメーターからドキュメントを取得する
+ *
+ * @param params パラメーター
+ *
+ * @returns ドキュメント | null
+ */
+export async function getDocFromParams(
+  params: Promise<Params>
+): Promise<Doc | null> {
+  const slug = (await params).slug.join("/");
+
+  return allDocs.find((doc) => doc.slugAsParams === slug) ?? null;
 }
 
 /**

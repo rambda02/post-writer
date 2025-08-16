@@ -1,92 +1,91 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "./ui/button";
-import TextareaAutosize from "react-textarea-autosize";
-import type EditorJS from "@editorjs/editorjs";
+import { useRouter } from "next/navigation";
+import EditorJS from "@editorjs/editorjs";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Post } from "@prisma/client";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { postPatchSchema, postPatchSchemaType } from "@/lib/validations/post";
+import TextareaAutosize from "react-textarea-autosize";
+import * as z from "zod";
+
+import "@/styles/editor.css";
+import { cn } from "@/lib/utils";
+import { postPatchSchema } from "@/lib/validations/post";
+import { buttonVariants } from "@/components/ui/button";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { Icons } from "@/components/icons";
 
 interface EditorProps {
   post: Pick<Post, "id" | "title" | "content" | "published">;
 }
 
-export const Editor = ({ post }: EditorProps) => {
+type FormData = z.infer<typeof postPatchSchema>;
+
+export function Editor({ post }: EditorProps) {
+  const { register, handleSubmit } = useForm<FormData>({
+    resolver: zodResolver(postPatchSchema),
+  });
+  const ref = useRef<EditorJS | null>(null);
   const router = useRouter();
-  const ref = useRef<EditorJS | undefined>(undefined);
-  const [isMounted, setIsMounted] = useState<boolean>(false);
   const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   const initializeEditor = useCallback(async () => {
     const EditorJS = (await import("@editorjs/editorjs")).default;
     const Header = (await import("@editorjs/header")).default;
-    const LinkTool = (await import("@editorjs/link")).default;
+    const Embed = (await import("@editorjs/embed")).default;
+    const Table = (await import("@editorjs/table")).default;
     const List = (await import("@editorjs/list")).default;
     const Code = (await import("@editorjs/code")).default;
+    const LinkTool = (await import("@editorjs/link")).default;
+    const InlineCode = (await import("@editorjs/inline-code")).default;
 
     const body = postPatchSchema.parse(post);
 
-    const editor = new EditorJS({
-      holder: "editor",
-      onReady: () => {
-        ref.current = editor;
-      },
-      placeholder: "ここに記事を書く",
-      inlineToolbar: true,
-      data: body.content,
-      tools: {
-        header: Header,
-        linkTool: LinkTool,
-        list: List,
-        code: Code,
-      },
-    });
+    if (!ref.current) {
+      const editor = new EditorJS({
+        holder: "editor",
+        onReady() {
+          ref.current = editor;
+        },
+        placeholder: "Type here to write your post...",
+        inlineToolbar: true,
+        data: body.content,
+        tools: {
+          header: Header,
+          linkTool: LinkTool,
+          list: List,
+          code: Code,
+          inlineCode: InlineCode,
+          table: Table,
+          embed: Embed,
+        },
+      });
+    }
   }, [post]);
 
-  /**
-   * ページリロード時はサーバーサイドでのレンダリングに一回実行された扱いになる　（　実際には実行されない　）
-   * そのため、StrictModeを有効にしていてもページリロード時は一回のみの実行になる
-   * ページ遷移時は2回実行される
-   */
-
-  // StrictModeを有効にしている場合、editorが2回生成されてしまう
-  // そのため、useEffectを使ってマウントステータスを管理する
   useEffect(() => {
-    // このコンポーネントがマウントされている場合
     if (typeof window !== "undefined") {
-      // マウントステータスをtrueにする
       setIsMounted(true);
     }
   }, []);
 
-  // マウントステータスがtrueの場合はエディターを初期化する
   useEffect(() => {
-    // マウントステータスがtrueの場合
     if (isMounted) {
-      // エディターを初期化する
       initializeEditor();
-    }
 
-    return () => {
-      // エディターを破棄する
-      ref.current?.destroy();
-      ref.current = undefined;
-    };
+      return () => {
+        ref.current?.destroy();
+        ref.current = null;
+      };
+    }
   }, [isMounted, initializeEditor]);
 
-  const { register, handleSubmit } = useForm<postPatchSchemaType>({
-    resolver: zodResolver(postPatchSchema),
-  });
-
-  const onSubmit = async (data: postPatchSchemaType) => {
+  async function onSubmit(data: FormData) {
     setIsSaving(true);
+
     const blocks = await ref.current?.save();
 
     const response = await fetch(`/api/posts/${post.id}`, {
@@ -102,14 +101,22 @@ export const Editor = ({ post }: EditorProps) => {
 
     setIsSaving(false);
 
-    if (!response.ok) {
-      return toast.error("問題が発生しました");
+    if (!response?.ok) {
+      return toast.error("Something went wrong. Your post was not saved. Please try again.", {
+        duration: 5000, // 5秒間表示　（ミリ秒単位）
+      });
     }
 
     router.refresh();
 
-    return toast.success("記事が更新されました。");
-  };
+    return toast.success("Your post has been saved.", {
+      duration: 5000, // 5秒間表示　（ミリ秒単位）
+    });
+  }
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -117,37 +124,44 @@ export const Editor = ({ post }: EditorProps) => {
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center space-x-10">
             <Link
-              href={"/dashboard"}
+              href="/dashboard"
               className={cn(buttonVariants({ variant: "ghost" }))}
             >
-              戻る
+              <>
+                <Icons.chevronLeft className="mr-2 h-4 w-4" />
+                Back
+              </>
             </Link>
-            <p className="text-sm text-muted-foreground">公開</p>
+            <p className="text-sm text-muted-foreground">
+              {post.published ? "Published" : "Draft"}
+            </p>
           </div>
-          <button className={cn(buttonVariants())} type="submit">
-            {isSaving && <Icons.spinner />}
-            <span>保存</span>
+          <button type="submit" className={cn(buttonVariants())}>
+            {isSaving && (
+              <Icons.spinner />
+            )}
+            <span>Save</span>
           </button>
         </div>
-        <div className="w-[800px] mx-auto">
+        <div className="prose prose-stone mx-auto w-[800px] dark:prose-invert">
           <TextareaAutosize
-            id="title"
             autoFocus
+            id="title"
             defaultValue={post.title}
-            placeholder="Post Title"
-            className="w-full resize-none overflow-hidden bg-transparent text-5xl focus:outline-none font-bold"
+            placeholder="Post title"
+            className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
             {...register("title")}
           />
+          <div id="editor" className="min-h-[500px]" />
+          <p className="text-sm text-gray-500">
+            Use{" "}
+            <kbd className="rounded-md border bg-muted px-1 text-xs uppercase">
+              Tab
+            </kbd>{" "}
+            to open the command menu.
+          </p>
         </div>
-        <div id="editor" className="min-h-[500px]" />
-        <p className="text-sm text-gray-500">
-          Use
-          <kbd className="rounded-md border bg-muted px-1 text-xs uppercase">
-            Tab
-          </kbd>
-          to open the command menu
-        </p>
       </div>
     </form>
   );
-};
+}
