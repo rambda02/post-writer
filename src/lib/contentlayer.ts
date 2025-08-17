@@ -40,7 +40,9 @@ export function getAuthorsFromPost(post: Post): (Author | undefined)[] {
 export async function getPostFromParams(
   params: Promise<Params>
 ): Promise<Post | null> {
-  const slug = (await params).slug.join("/");
+  const resolvedParams = await params;
+  // slugが存在しない場合は空の文字列を返す
+  const slug = resolvedParams.slug ? resolvedParams.slug.join("/") : "";
 
   return allPosts.find((post) => post.slugAsParams === slug) ?? null;
 }
@@ -55,7 +57,9 @@ export async function getPostFromParams(
 export async function getDocFromParams(
   params: Promise<Params>
 ): Promise<Doc | null> {
-  const slug = (await params).slug.join("/");
+  const resolvedParams = await params;
+  // slugが存在しない場合は空の文字列を返す
+  const slug = resolvedParams.slug ? resolvedParams.slug.join("/") : "";
 
   return allDocs.find((doc) => doc.slugAsParams === slug) ?? null;
 }
@@ -70,7 +74,9 @@ export async function getDocFromParams(
 export async function getGuideFromParams(
   params: Promise<Params>
 ): Promise<Guide | null> {
-  const slug = (await params).slug.join("/");
+  const resolvedParams = await params;
+  // slugが存在しない場合は空の文字列を返す
+  const slug = resolvedParams.slug ? resolvedParams.slug.join("/") : "";
 
   return allGuides.find((guide) => guide.slugAsParams === slug) ?? null;
 }
@@ -85,7 +91,9 @@ export async function getGuideFromParams(
 export async function getPageFromParams(
   params: Promise<Params>
 ): Promise<Page | null> {
-  const slug = (await params).slug.join("/");
+  const resolvedParams = await params;
+  // slugが存在しない場合は空の文字列を返す
+  const slug = resolvedParams.slug ? resolvedParams.slug.join("/") : "";
 
   return allPages.find((page) => page.slugAsParams === slug) ?? null;
 }
